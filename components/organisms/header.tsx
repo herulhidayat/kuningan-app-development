@@ -4,9 +4,11 @@ import Link from 'next/link'
 import { Bars2Icon, CursorArrowRaysIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import { useState } from 'react'
 import ThemeToggle from '../atoms/theme-toggle'
+import { useRouter } from 'next/navigation'
 
 export default function Header() {
   const [visible, setVisible] = useState(false)
+  const router = useRouter()
 
   function handleClick() {
     setVisible(!visible)
@@ -66,8 +68,8 @@ export default function Header() {
                 <ThemeToggle />
                 <div className="space-y-3 w-fit">
                   <div className="relative text-sm">
-                    <button className="shadow-button flex items-center gap-1.5 rounded-md px-3 py-1.5 text-start text-sm font-medium text-black dark:text-white active:bg-washed hover:dark:bg-washed-dark/50 active:dark:bg-washed-dark select-none bg-white dark:bg-zinc-900 border-outline dark:border-zinc-800 hover:border-outlineHover hover:dark:border-outlineHover-dark border outline-none w-fit hover:bg-emerald-600 hover:text-white dark:hover:bg-emerald-800 dark:hover:text-white">
-                      Login
+                    <button onClick={() => router.push('/login')} className="shadow-button flex items-center gap-1.5 rounded-md px-3 py-1.5 text-start text-sm font-medium text-black dark:text-white active:bg-washed hover:dark:bg-washed-dark/50 active:dark:bg-washed-dark select-none bg-white dark:bg-zinc-900 border-outline dark:border-zinc-800 hover:border-outlineHover hover:dark:border-outlineHover-dark border outline-none w-fit hover:bg-emerald-600 hover:text-white dark:hover:bg-emerald-800 dark:hover:text-white">
+                      Sign in
                     </button>
                   </div>
                 </div>
@@ -76,8 +78,8 @@ export default function Header() {
                 <ThemeToggle />
                 <div className="space-y-3 w-fit">
                   <div className="relative text-sm">
-                    <button className="shadow-button flex items-center gap-1.5 rounded-md px-3 py-1.5 text-start text-sm font-medium text-black dark:text-white active:bg-washed hover:dark:bg-washed-dark/50 active:dark:bg-washed-dark select-none bg-white dark:bg-zinc-900 border-outline dark:border-washed-dark hover:border-outlineHover hover:dark:border-outlineHover-dark border outline-none w-fit hover:bg-emerald-600 hover:text-white dark:hover:bg-emerald-600 dark:hover:text-white">
-                      Login
+                    <button onClick={() => router.push('/login')} className="shadow-button flex items-center gap-1.5 rounded-md px-3 py-1.5 text-start text-sm font-medium text-black dark:text-white active:bg-washed hover:dark:bg-washed-dark/50 active:dark:bg-washed-dark select-none bg-white dark:bg-zinc-900 border-outline dark:border-washed-dark hover:border-outlineHover hover:dark:border-outlineHover-dark border outline-none w-fit hover:bg-emerald-600 hover:text-white dark:hover:bg-emerald-600 dark:hover:text-white">
+                      Sign in
                     </button>
                   </div>
                 </div>
