@@ -36,7 +36,7 @@ function LoginPage() {
 
   const mutation = useMutation({
     mutationFn: async (newDataset: { username: string; password: string }) => {
-      const res = await axios.post(API_PATH().auth.login, newDataset);
+      const res = await axios.post(`http://194.59.165.146:8900/${API_PATH().auth.login}`, newDataset);
       console.log(res)
       return res.data;
     },

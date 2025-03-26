@@ -6,20 +6,56 @@ import FormDataInputDataset from "@/components/organisms/form-data-input-dataset
 import FormDataKonfigurasiDataset from "@/components/organisms/form-data-konfigurasi-dataset"
 import Hero from "@/components/organisms/hero"
 import StepFrom from "@/components/organisms/step-from"
+import { API_PATH } from "@/services/_path.service"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { QueryClient, QueryClientProvider, useMutation } from "@tanstack/react-query"
+import axios from "axios"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { use, useCallback, useState } from "react"
 import { useForm } from "react-hook-form"
 import * as yup from "yup";
 
-function AddDataset() {
+function FormDataset() {
 	const router = useRouter()
 	const [currentStep, setCurrentStep] = useState<number>(1)
 	const step = ["Infomasi Data", "Konfigurasi Data", "Masukkan Data", "Selesai"]
 
-  const [dataMain, setDataMain] = useState<any>({
-    generalInfo: {}
+  const [dataMain, setDataMain] = useState<any>({});
+
+  const mutation = useMutation({
+    mutationFn: async (dataset: any) => {
+      const res = await axios.post(`http://194.59.165.146:8900/${API_PATH().dataset.add}`, dataset);
+      console.log(res)
+      return res.data;
+    },
+    onSuccess: () => {
+      // Setelah sukses, refetch data agar data terbaru muncul
+	  setCurrentStep(4)
+    },
   });
+
+  const handleCallbackFormConfig = useCallback((data: any, next: number) => {
+	setDataMain((prev: any) => ({ ...prev, ...data }));
+	setCurrentStep(next);
+  }, []);
+
+  const handleCallbackRow = useCallback((data: any) => {
+	if(data?.isEdit) {
+		setDataMain((prev: any) => ({ 
+			...prev, 
+			value_row: prev?.value_row.map((item: any, i: number) => i === data?.dataIndex ? data?.row : item) 
+		}));
+	} else {
+		setDataMain((prev: any) => ({ 
+			...prev, 
+			value_row: Boolean(prev?.value_row) ? [...prev?.value_row, data?.row] : [data?.row]
+		}));
+	}
+  }, []);
+
+  const handleSaveData = () => {
+	mutation.mutate(dataMain);
+  }
 
 
 	return (
@@ -35,21 +71,23 @@ function AddDataset() {
 						<StepFrom stepData={step} currentStep={currentStep} />
 						{currentStep === 1 && (
 							<FormDataInformasiDataset
-								callbackNext={() => setCurrentStep(2)}
-								data={dataMain.generalInfo}
-								setData={(data: any) => setDataMain((prev: any) => ({ ...prev, generalInfo: data }))}
+								data={dataMain}
+								callbackNext={(data: any) => handleCallbackFormConfig(data, 2)}
 							/>
 						)}
 						{currentStep === 2 && (
 							<FormDataKonfigurasiDataset
-								callbackNext={() => setCurrentStep(3)}
+								data={dataMain}
+								callbackNext={(data: any) => handleCallbackFormConfig(data, 3)}
 								callbackBack={() => setCurrentStep(1)}
 							/>
 						)}
 						{currentStep === 3 && (
 							<FormDataInputDataset
-								callbackNext={() => setCurrentStep(4)}
+								data={dataMain}
+								callbackNext={() => handleSaveData()}
 								callbackBack={() => setCurrentStep(2)}
+								callbackData={handleCallbackRow}
 							/>
 						)}
 						{currentStep === 4 && (
@@ -69,4 +107,12 @@ function AddDataset() {
 	)
 }
 
-export default AddDataset
+const queryClient = new QueryClient();
+
+export default function AddDataset() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <FormDataset />
+    </QueryClientProvider>
+  );
+}

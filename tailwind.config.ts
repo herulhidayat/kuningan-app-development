@@ -5,6 +5,8 @@ export default {
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "node_modules/flowbite-react/lib/esm/**/*.js",
+    require('flowbite-react/tailwind').content()
   ],
   darkMode: 'class',
   theme: {
@@ -20,5 +22,8 @@ export default {
       textColor: ['visited']
     }
   },
-  plugins: [],
+  plugins: [
+    require('flowbite/plugin'),
+    require('flowbite-react/tailwind').plugin(),
+  ],
 } satisfies Config;
