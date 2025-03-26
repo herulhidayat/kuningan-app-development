@@ -6,30 +6,28 @@ import * as yup from "yup";
 
 interface FormDataInformasiDatasetProps {
   data: any
-  setData: (data: any) => void
-  callbackNext: () => void
+  callbackNext: (data: any) => void
 }
 
 export default function FormDataInformasiDataset({
   data,
-  setData,
   callbackNext
 }: FormDataInformasiDatasetProps) {
   const router = useRouter()
   const schema = yup.object().shape({
     author: yup.string().required('Author is required'),
-    name: yup.string().required("Name is required"),
-    category: yup.string().required("Category is required"),
-    source: yup.string().required("Source is required"),
-    description: yup.string().required("Description is required"),
+    data_name: yup.string().required('Data Name is required'),
+    category: yup.string().required('Category is required'),
+    data_source: yup.string().required('Data Source is required'),
+    data_description: yup.string().required('Data Description is required'),
   });
 
   const [formModel] = useState<any>({
     author: "",
-    name: "",
+    data_name: "",
     category: "",
-    source: "",
-    description: "",
+    data_source: "",
+    data_description: "",
   });
 
   
@@ -44,15 +42,15 @@ export default function FormDataInformasiDataset({
   });
   
   const handleSubmitForm = (data: any) => {
-    console.log(data)
-    setData(data)
-    callbackNext()
+    callbackNext(data)
   }
 
   useEffect(() => {
     if (data) {
       for (const [key, value] of Object.entries(data)) {
-        setValue(key, value)
+        if(formModel.hasOwnProperty(key)) {
+          setValue(key, value)
+        }
       }
     }
   }, [data])
@@ -69,7 +67,7 @@ export default function FormDataInformasiDataset({
               </div>
               <div className="col-span-2">
                 <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nama Dataset</label>
-                <input {...register('name')} type="" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Masukkan nama dataset" required />
+                <input {...register('data_name')} type="" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Masukkan nama dataset" required />
               </div>
               <div className="col-span-1">
                 <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Kategori Data</label>
@@ -77,11 +75,11 @@ export default function FormDataInformasiDataset({
               </div>
               <div className="col-span-1">
                 <label htmlFor="source" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sumber Data</label>
-                <input {...register('source')} type="" id="source" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Masukkan sumber data" required />
+                <input {...register('data_source')} type="" id="source" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Masukkan sumber data" required />
               </div>
               <div className="col-span-2">
                 <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Deksripsi</label>
-                <textarea {...register('description')} id="message" rows={4} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Masukkan deskripsi dataset"></textarea>
+                <textarea {...register('data_description')} id="message" rows={4} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-emerald-500 focus:border-emerald-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500" placeholder="Masukkan deskripsi dataset"></textarea>
               </div>
             </div>
             <div className="flex justify-between">

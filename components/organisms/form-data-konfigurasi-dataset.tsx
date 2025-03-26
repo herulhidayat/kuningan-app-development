@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DocumentIcon from "../ui/icons/DocumentIcon";
 import ScrollIcon from "../ui/icons/ScrollIcon";
 import FormDataField from "../molecules/form-data-field";
@@ -6,11 +6,32 @@ import UploadIcon from "../ui/icons/UploadIcon";
 import FormUpload from "../molecules/form-upload";
 
 interface IFormDataKonfig {
-    callbackNext: () => void
+    data: any
+    callbackNext: (v:any) => void
     callbackBack: () => void
 }
-export default function FormDataKonfigurasiDataset({ callbackNext, callbackBack }:IFormDataKonfig) {
+export default function FormDataKonfigurasiDataset({ data, callbackNext, callbackBack }:IFormDataKonfig) {
     const [type, setType] = useState<"table" | "file">()
+    const [dataField, setDataField] = useState<any>([]);
+
+    const handleCallbackData = () => {
+        const data = {
+            column: dataField,
+            data_table: type === "table" ? true : false,
+            upload_file: type === "file" ? true : false
+        }
+
+        callbackNext(data)
+    }
+
+    useEffect(() => {
+        if (data.column) {
+            setDataField(data.column)
+        }
+        if (data.data_table || data.upload_file) {
+            setType(data.data_table || !data.upload_file ? "table" : "file")
+        }
+    }, [data])
     return(
         <>
             <div className="flex items-center justify-center">
@@ -40,19 +61,14 @@ export default function FormDataKonfigurasiDataset({ callbackNext, callbackBack 
                         </div>
                     </div>
                     {type === 'table' && (
-                        <div className="flex flex-col gap-4">
-                            <div className="flex flex-col gap-2">
-                                <FormDataField />
-                            </div>
-                            <div className="cursor-pointer w-full h-10 rounded-lg border-dashed border border-emerald-500 bg-emerald-50 text-emerald-500 text-sm font-medium flex justify-center items-center">Tambah Kolom</div>
-                        </div>
+                        <FormDataField dataField={dataField} setDataField={setDataField} />
                     )}
                     {type === 'file' && (
                         <FormUpload />
                     )}
                     <div className="flex justify-between">
                         <button onClick={() => callbackBack()} className="text-white bg-gray-500 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-500 dark:hover:bg-gray-600 dark:focus:ring-gray-700">Back</button>
-                        <button onClick={() => callbackNext()} className="text-white bg-emerald-600 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">Next</button>
+                        <button onClick={handleCallbackData} className="text-white bg-emerald-600 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">Next</button>
                     </div>
                 </div>
             </div>
