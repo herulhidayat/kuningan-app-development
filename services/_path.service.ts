@@ -10,6 +10,13 @@ export const API_PATH = () => {
         delete: "v1/dataSet/delete",
         getAll: "v1/dataSet/get-all",
         getOne: "v1/dataSet/get-one",
-      }
+      },
+      user: {
+        getAll: "v1/user/get-all",
+        getOne: "v1/user/get-one",
+        add: "v1/user/add",
+        update: "v1/user/update",
+        delete: "v1/user/delete",
+      },
     }
 }

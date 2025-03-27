@@ -5,7 +5,6 @@ import Hero from "@/components/organisms/hero";
 import Pagination from "@/components/organisms/pagination";
 import { API_PATH } from "@/services/_path.service";
 import api from "@/services/api.service";
-import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import {
   QueryClient,
   QueryClientProvider,
@@ -15,9 +14,11 @@ import {
 import axios from "axios";
 import { debounce } from "lodash";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { use, useCallback, useEffect, useMemo, useState } from "react";
 import Cookies from "js-cookie";
 import Skeleton from "react-loading-skeleton";
+import SearchBar from "@/components/atoms/search-bar";
+import NoResult from "@/components/ui/illustrations/NoResult";
 
 export interface Dataset {
     _id: string;
@@ -42,11 +43,14 @@ const DatasetsPage = () => {
     itemsPerPage: 10,
     count: 0,
   });
-  const [params, setParams] = useState<any>({})
+  const [params, setParams] = useState<any>({
+    "order": "DESC",
+    "orderBy": "createdAt",
+  })
   const isLoggedin = Cookies.get("authToken");
 
   const queryDataset = useQuery({
-    queryKey: ["datasets", pagination.currentPage],
+    queryKey: ["datasets", pagination.currentPage, params],
     queryFn: async () => {
       const response = await api.post(
         `/${API_PATH().dataset.getAll}`,
@@ -76,17 +80,35 @@ const DatasetsPage = () => {
     },
   });
 
-  const handleSearch = (e: any) => {
-    const search = e.target.value;
-    if(search) {
-      setParams({
+  const handleSearch = useCallback((search: any) => {
+    if (search) {
+      setParams((prev: any) => ({
+        ...prev,
         search: search,
         searchBy: ["data_name", "data_description"]
-      })
+      }))
+    } else {
+      setParams((prev: any) => ({
+        ...prev,
+        search: undefined,
+        searchBy: undefined,
+      }))
     }
-  };
+  }, []);
 
-  const debounceSearch = debounce(handleSearch, 1000);
+  const renderCard = useMemo(() => {
+    return queryDataset.data?.data?.map(
+      (dataSet: Dataset) => {
+        return (
+          <div key={dataSet._id}>
+            <Card dataSet={dataSet} handleDelete={(id) => mutation.mutate(id)}/>
+          </div>
+        );
+      }
+    )
+  }, [queryDataset.data?.data]);
+
+  
 
   useEffect(() => {
     queryDataset.refetch();
@@ -103,31 +125,7 @@ const DatasetsPage = () => {
         <div className="md:px-4.5 dark:divide-washed-dark h-full w-full max-w-screen-2xl px-3 lg:px-6 mt-8 flex flex-col gap-4">
           <div className="flex flex-col md:flex-row gap-2 md:justify-between"> 
 
-            <div className="relative">
-              <label htmlFor="Search" className="sr-only">
-                {" "}
-                Search{" "}
-              </label>
-
-              <input
-                type="text"
-                id="Search"
-                placeholder="Cari dataset..."
-                className="w-full rounded-md border-gray-200 ps-3 py-2.5 pe-10 shadow-xs sm:text-sm"
-                onChange={(e) => debounceSearch(e)}
-              />
-
-              <span className="absolute -top-3 md:top-0 inset-y-0 end-0 grid w-10 place-content-center">
-                <button
-                  type="button"
-                  className="text-gray-600 hover:text-gray-700"
-                >
-                  <span className="sr-only">Search</span>
-
-                  <MagnifyingGlassIcon className="h-6 w-6" />
-                </button>
-              </span>
-            </div>
+            <SearchBar placeholder="Cari dataset..." callbackSearch={handleSearch} />
 
             <div className="flex flex-row gap-4">
               <select
@@ -174,16 +172,18 @@ const DatasetsPage = () => {
             )}
 
             {queryDataset.data?.data?.length > 0 &&
-              queryDataset.data?.data?.map(
-                (dataSet: Dataset) => {
-                  return (
-                    <div key={dataSet._id}>
-                      <Card dataSet={dataSet} handleDelete={(id) => mutation.mutate(id)}/>
-                    </div>
-                  );
-                }
-              )}
+              renderCard
+            }
           </div>
+          
+          {queryDataset.isError && (
+            <div className='px-6 py-4 text-center font-semibold text-gray-500'>
+              <div className='flex justify-center w-full text-emerald-500'>
+                <NoResult />
+              </div>
+              <span>Maaf, data tidak ditemukan</span>
+            </div>
+          )}
         </div>
 
         <Pagination

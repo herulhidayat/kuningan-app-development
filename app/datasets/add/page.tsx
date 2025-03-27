@@ -8,13 +8,9 @@ import Hero from "@/components/organisms/hero"
 import StepFrom from "@/components/organisms/step-from"
 import { API_PATH } from "@/services/_path.service"
 import api from "@/services/api.service"
-import { yupResolver } from "@hookform/resolvers/yup"
 import { QueryClient, QueryClientProvider, useMutation } from "@tanstack/react-query"
-import axios from "axios"
 import { useRouter } from "next/navigation"
 import { use, useCallback, useState } from "react"
-import { useForm } from "react-hook-form"
-import * as yup from "yup";
 
 function FormDataset() {
 	const router = useRouter()

@@ -12,6 +12,7 @@ import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
+import Image from 'next/image';
 
 const Card = ({ dataSet, isSkeleton, handleDelete }: { dataSet?: Dataset; isSkeleton?: boolean, handleDelete?: (id: any) => void }) => {
   const router = useRouter();
@@ -88,7 +89,7 @@ const Card = ({ dataSet, isSkeleton, handleDelete }: { dataSet?: Dataset; isSkel
           <ModalHeader>{modalConfirm.title}</ModalHeader>
           <ModalBody>
               <div className="flex flex-col justify-center items-center gap-3">
-                  <img src="/img/remove.png" alt="success" width={300} className="object-cover" />
+                  <Image src="/img/remove.png" alt="success" width={300} height={300} className="object-cover" />
                   <p className="text-lg font-semibold leading-relaxed text-center text-gray-800 dark:text-white">
                       {modalConfirm.message}
                   </p>

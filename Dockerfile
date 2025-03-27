@@ -4,11 +4,11 @@ FROM node:18-alpine AS builder
 # Set working directory
 WORKDIR /app
 
-# Install dependencies
-RUN npm install
-
 # Salin file package.json dan package-lock.json untuk install dependencies
 COPY package*.json ./
+
+# Install dependencies
+RUN npm install
 
 # Install dependencies dengan mode CI untuk kestabilan
 RUN npm ci
