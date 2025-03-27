@@ -2,7 +2,6 @@
 
 import { columnSetter } from "@/components/atoms/column-setter";
 import ReactTable from "@/components/molecules/react-table";
-import Table from "@/components/molecules/table";
 import Pagination from "@/components/organisms/pagination";
 import { API_PATH } from "@/services/_path.service";
 import api from "@/services/api.service";
@@ -15,10 +14,9 @@ import {
   QueryClientProvider,
   useQuery,
 } from "@tanstack/react-query";
-import axios from "axios";
 import { size } from "lodash";
 import moment from "moment";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 import Skeleton from "react-loading-skeleton";
 
@@ -26,7 +24,6 @@ const queryClient = new QueryClient();
 
 const DatasetDetailPage = () => {
   const params = useParams();
-  const [dataRow, setDataRow] = useState([]);
   const [pagination, setPagination] = useState({
     currentPage: 1,
     itemsPerPage: 10,

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import logout from './helpers/logout.helper'
  
 // 1. Specify protected and public routes
-const protectedRoutes = ['/datasets/add']
+const protectedRoutes = ['/datasets/add', '/administrator/user-management', '/administrator/role']
  
 export default async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname

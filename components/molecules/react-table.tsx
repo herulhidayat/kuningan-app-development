@@ -72,7 +72,7 @@ const ReactTable: FC<Props> = ({
   }, [table.getState().columnFilters]);
 
   return (
-    <div className="relative overflow-x-auto border sm:rounded-lg" style={{ minHeight: '13rem' }}>
+    <div className="relative overflow-x-auto border dark:border-gray-700 sm:rounded-lg" style={{ minHeight: '13rem' }}>
       <table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
         {!hideHeader && (
           <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
@@ -114,7 +114,6 @@ const ReactTable: FC<Props> = ({
                   </td>
                 </tr>
               : table.getRowModel()?.rows?.map((row) => {
-                console.log(row)
                 return(
                 <tr key={row.id} className='bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200'>
                   {row.getVisibleCells().map((cell) => (

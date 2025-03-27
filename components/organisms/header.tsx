@@ -4,11 +4,12 @@ import Link from 'next/link'
 import { Bars2Icon, CursorArrowRaysIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import { useState } from 'react'
 import ThemeToggle from '../atoms/theme-toggle'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { getItem } from '@/helpers/localstorage.helper'
 import { Dropdown, DropdownItem } from 'flowbite-react'
 import logout from '@/helpers/logout.helper'
 import Cookies from 'js-cookie'
+import Image from 'next/image'
 
 export default function Header() {
   const [visible, setVisible] = useState(false)
@@ -81,14 +82,14 @@ export default function Header() {
                         dismissOnClick={false} 
                         renderTrigger={() => 
                           <div className='flex flex-row items-center justify-center gap-3 hover:cursor-pointer text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-gray-200'>
-                            <img src={"/img/avatar.svg"} alt="avatar" className='w-8 h-8 object-cover rounded-full' />
+                            <Image src={"/img/avatar.svg"} alt="avatar" className='object-cover rounded-full' width={32} height={32} />
                             <span className='hidden md:block font-medium'>{user?.fullname}</span>
                             <svg className="w-2.5 mt-[0.12rem]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
                             </svg>
                           </div>
                         }>
-                          <DropdownItem className='flex items-center gap-2' onClick={() => {router.push('/user-management')}}>Administrator</DropdownItem>
+                          <DropdownItem className='flex items-center gap-2' onClick={() => {router.push('/administrator/user-management')}}>Administrator</DropdownItem>
                           <DropdownItem className='flex items-center gap-2' onClick={() => {logout();router.push('/login')}}>Logout</DropdownItem>
                       </Dropdown>
                     ) : (

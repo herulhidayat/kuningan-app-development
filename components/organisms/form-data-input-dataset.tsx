@@ -5,6 +5,7 @@ import { capitalize, size } from "lodash";
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "flowbite-react";
 import FormDataTambahEditRow from "./form-data-tambah-edit-row";
 import { columnSetter } from "../atoms/column-setter";
+import Image from "next/image";
 
 interface IFormDataInput {
     data: any
@@ -80,7 +81,7 @@ export default function FormDataInputDataset({data,callbackBack,callbackNext,cal
                 <ModalHeader>{modalConfirm.title}</ModalHeader>
                 <ModalBody>
                     <div className="flex flex-col justify-center items-center gap-3">
-                        <img src="/img/data-check.png" alt="success" width={300} className="object-cover" />
+                        <Image src="/img/data-check.png" alt="success" width={300} height={300} className="object-cover" />
                         <p className="text-lg font-semibold leading-relaxed text-center text-gray-800 dark:text-white">
                             Proses ini akan menyimpan data ke dalam database, apakah anda yakin?
                         </p>

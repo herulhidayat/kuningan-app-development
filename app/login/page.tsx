@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { QueryClient, QueryClientProvider, useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import Cookies from "js-cookie";
@@ -48,7 +48,6 @@ function LoginPage() {
     onSuccess: ( data ) => {
       const expirationDate = new Date(data?.auth?.expire);
       Cookies.set("authToken", data?.auth?.token, { expires: expirationDate });
-      console.log(data, expirationDate)
       router.push(redirectUrl || '/')
     },
   });
@@ -91,7 +90,9 @@ const queryClient = new QueryClient();
 export default function Login() {
   return (
     <QueryClientProvider client={queryClient}>
-      <LoginPage />
+      <Suspense>
+        <LoginPage />
+      </Suspense>
     </QueryClientProvider>
   );
 }
