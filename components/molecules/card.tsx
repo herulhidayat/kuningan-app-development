@@ -78,7 +78,7 @@ const Card = ({ dataSet, isSkeleton, handleDelete }: { dataSet?: Dataset; isSkel
                   <MoreIcon />
                 </div>
               }>
-                <DropdownItem className='flex items-center gap-2'><div className='text-blue-500'><EditIcon /></div> Ubah</DropdownItem>
+                <DropdownItem className='flex items-center gap-2' onClick={() => router.push(`/datasets/edit/${dataSet?._id}`)}><div className='text-blue-500'><EditIcon /></div> Ubah</DropdownItem>
                 <DropdownItem className='flex items-center gap-2' onClick={() => setModalConfirm((prev:any) => ({...prev, title: "Hapus Dataset", message: "Apakah Anda yakin ingin menghapus dataset ini?", show: true, subMessage: "Dataset yang telah dihapus tidak dapat dikembalikan", data: dataSet}))}><div className='text-red-500'><TrashIcon /></div> Hapus</DropdownItem>
             </Dropdown>
           )}
