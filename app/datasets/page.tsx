@@ -4,6 +4,7 @@ import Card from "@/components/molecules/card";
 import Hero from "@/components/organisms/hero";
 import Pagination from "@/components/organisms/pagination";
 import { API_PATH } from "@/services/_path.service";
+import api from "@/services/api.service";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import {
   QueryClient,
@@ -44,8 +45,8 @@ const DatasetsPage = () => {
   const queryDataset = useQuery({
     queryKey: ["datasets", pagination.currentPage],
     queryFn: async () => {
-      const response = await axios.post(
-        `http://194.59.165.146:8900/${API_PATH().dataset.getAll}`,
+      const response = await api.post(
+        `/${API_PATH().dataset.getAll}`,
         {
           params: {
             ...params,
@@ -54,8 +55,6 @@ const DatasetsPage = () => {
           }
         }
       );
-
-      console.log(response);
 
       setPagination((prev) => ({
         ...prev,
@@ -67,7 +66,7 @@ const DatasetsPage = () => {
 
   const mutation = useMutation({
     mutationFn: async (id: any) => {
-      const res = await axios.delete(`http://194.59.165.146:8900/${API_PATH().dataset.delete}`, { params: {id: id} });
+      const res = await api.delete(`/${API_PATH().dataset.delete}`, { params: {id: id} });
       return res.data;
     },
     onSuccess: () => {
