@@ -53,7 +53,7 @@ export default function FormDataInputDataset({data,callbackBack,callbackNext,cal
                             columns={columnSetter(data?.column)}   
                             noData={size(data?.value_row) > 0 ? false : true}                         
                         />
-                        <button type="button" onClick={() => setModal((prev:any) => ({...prev, show: true, title: "Tambah Data"}))} className="cursor-pointer w-full h-10 rounded-lg border-dashed border border-emerald-500 bg-emerald-50 text-emerald-500 text-sm font-medium flex justify-center items-center">Tambah Data</button>
+                        <button type="button" onClick={() => setModal((prev:any) => ({...prev, show: true, title: "Tambah Data"}))} className="cursor-pointer w-full h-10 rounded-lg border-dashed border border-emerald-500 bg-emerald-50  dark:bg-emerald-900 dark:text-emerald-400 text-emerald-500 text-sm font-medium flex justify-center items-center">Tambah Data</button>
                         <Pagination
                             itemsPerPage={pagination.itemsPerPage}
                             totalItems={pagination.count}

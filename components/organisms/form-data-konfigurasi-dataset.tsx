@@ -37,7 +37,7 @@ export default function FormDataKonfigurasiDataset({ data, callbackNext, callbac
             <div className="flex items-center justify-center">
                 <div className="w-1/2 max-md:w-full flex flex-col gap-8">
                     <div className="flex gap-5 w-full mt-8">
-                        <div onClick={() => setType("table")} className={`${type === "table" ? "border-emerald-500 bg-emerald-50" : "border-gray-300 dark:border-gray-800"} border hover:border-emerald-600 transition duration-300 ease-in-out rounded-xl p-4 w-full`}>
+                        <div onClick={() => setType("table")} className={`${type === "table" ? "border-emerald-500 bg-emerald-50 dark:bg-emerald-900" : "border-gray-300 dark:border-gray-800"} cursor-pointer border hover:border-emerald-600 transition duration-300 ease-in-out rounded-xl p-4 w-full`}>
                             <div className="flex gap-4">
                                 <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
                                     <ScrollIcon />
@@ -48,8 +48,8 @@ export default function FormDataKonfigurasiDataset({ data, callbackNext, callbac
                                 </div>
                             </div>
                         </div>
-                        <div onClick={() => setType("file")} className={`${type === "file" ? "border-emerald-500 bg-emerald-50" : "border-gray-300 dark:border-gray-800"} border hover:border-emerald-600 transition duration-300 ease-in-out rounded-xl p-4 w-full`}>
-                            <div className="flex gap-4">
+                        <div onClick={() => setType("file")} className={`${type === "file" ? "border-emerald-500 bg-emerald-50 dark:bg-emerald-900" : "border-gray-300 dark:border-gray-800"} cursor-pointer border hover:border-emerald-600 transition duration-300 ease-in-out rounded-xl p-4 w-full`}>
+                            <div className="flex flex-row gap-4">
                                 <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
                                     <DocumentIcon />
                                 </div>

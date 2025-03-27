@@ -37,7 +37,7 @@ function UserManagement() {
     });
 
     const queryDataset = useQuery({
-        queryKey: ["datasets", pagination.currentPage, params],
+        queryKey: ["users", pagination.currentPage, params],
         queryFn: async () => {
             const response = await api.post(
                 `/${API_PATH().user.getAll}`,

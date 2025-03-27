@@ -2,7 +2,7 @@ import UploadIcon from "../ui/icons/UploadIcon";
 
 export default function FormUpload() {
     return(
-        <div className="cursor-pointer h-32 w-full rounded-lg border-dashed border-2 border-emerald-500 bg-emerald-50 text-sm font-normal flex justify-center items-center">
+        <div className="cursor-pointer h-32 w-full rounded-lg border-dashed border-2 border-emerald-500 bg-emerald-50  dark:bg-emerald-900 text-sm font-normal flex justify-center items-center">
             <div className="flex gap-3 justify-center items-center">
                 <div className="text-emerald-500">
                     <UploadIcon />

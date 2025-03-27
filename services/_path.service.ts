@@ -18,5 +18,12 @@ export const API_PATH = () => {
         update: "v1/user/update",
         delete: "v1/user/delete",
       },
+      role: {
+        getAll: "v1/role/get-all",
+        getOne: "v1/role/get-one",
+        add: "v1/role/add",
+        update: "v1/role/update",
+        delete: "v1/role/delete",
+      }
     }
 }
