@@ -75,7 +75,7 @@ export default function FormDataField({ dataField, setDataField }: IFormDataFiel
           </SortableContext>
         </DndContext>
       </div>
-      <div onClick={handleAddField} className="cursor-pointer w-full h-10 rounded-lg border-dashed border border-emerald-500 bg-emerald-50 text-emerald-500 text-sm font-medium flex justify-center items-center">Tambah Kolom</div>
+      <div onClick={handleAddField} className="cursor-pointer w-full h-10 rounded-lg border-dashed border border-emerald-500 bg-emerald-50 dark:bg-emerald-900 dark:text-emerald-400 text-emerald-500 text-sm font-medium flex justify-center items-center">Tambah Kolom</div>
     </div>
   );
 
