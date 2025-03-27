@@ -4,6 +4,7 @@ import ReactTable from "../molecules/react-table";
 import { capitalize, size } from "lodash";
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "flowbite-react";
 import FormDataTambahEditRow from "./form-data-tambah-edit-row";
+import { columnSetter } from "../atoms/column-setter";
 
 interface IFormDataInput {
     data: any
@@ -29,16 +30,6 @@ export default function FormDataInputDataset({data,callbackBack,callbackNext,cal
         count: 10,
     });
     const [dataRow, setDataRow] = useState([]);
-
-    const columnSetter = (dataColumn:any) => {
-        const columns = dataColumn.map((item:any) => ({
-            id: item.name,
-            header: capitalize(item.name),
-            accessorKey: item.name,
-            disableFilters: false,
-        }))
-        return columns
-    }
 
     const handleCloseModal = () => {
         setModal((prev:any) => ({...prev, show: false}))
@@ -85,7 +76,7 @@ export default function FormDataInputDataset({data,callbackBack,callbackNext,cal
                 />
             </Modal>
 
-            <Modal show={modalConfirm.show} position="center" onClose={handleCloseModal}>
+            <Modal show={modalConfirm.show} position="center" onClose={() => setModalConfirm((prev:any) => ({...prev, show: false}))}>
                 <ModalHeader>{modalConfirm.title}</ModalHeader>
                 <ModalBody>
                     <div className="flex flex-col justify-center items-center gap-3">
