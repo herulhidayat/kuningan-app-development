@@ -1,14 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
+import logout from './helpers/logout.helper'
  
 // 1. Specify protected and public routes
-const protectedRoutes = ['/datasets/adds']
+const protectedRoutes = ['/datasets/add']
  
 export default async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname
   const isProtectedRoute = protectedRoutes.includes(path)
- 
-  if (isProtectedRoute) {
+  const authToken =  req.cookies.get("authToken") // Perbaikan: baca cookie dari `req.cookies`
+
+  // Debugging logs
+  console.log("Path:", path)
+  console.log("isProtectedRoute:", isProtectedRoute)
+  console.log("authToken:", authToken)
+
+  if (isProtectedRoute && !authToken) {
     const callbackUrl = encodeURIComponent(req.nextUrl.pathname)
     return NextResponse.redirect(new URL(`/login?redirect=${callbackUrl}`, req.nextUrl))
   }
