@@ -9,3 +9,49 @@
 .no-arrow-scrollbar::-webkit-scrollbar {
     width: 5px;
 }
+
+/** MAX LINE TEXT */
+.max-lines-1 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    max-height: 1 * 1.5em;
+  }
+  
+  .max-lines-2 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    max-height: 2 * 1.5em;
+  }
+  
+  .max-lines-3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;
+    max-height: 3 * 1.5em;
+  }
+  
+  .max-lines-4 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 4;
+    max-height: 4 * 1.5em;
+  }
+  
+  .max-lines-5 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 5;
+    max-height: 5 * 1.5em;
+  }
