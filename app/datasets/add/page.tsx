@@ -7,6 +7,7 @@ import FormDataKonfigurasiDataset from "@/components/organisms/form-data-konfigu
 import Hero from "@/components/organisms/hero"
 import StepFrom from "@/components/organisms/step-from"
 import { API_PATH } from "@/services/_path.service"
+import api from "@/services/api.service"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { QueryClient, QueryClientProvider, useMutation } from "@tanstack/react-query"
 import axios from "axios"
@@ -24,8 +25,7 @@ function FormDataset() {
 
   const mutation = useMutation({
     mutationFn: async (dataset: any) => {
-      const res = await axios.post(`http://194.59.165.146:8900/${API_PATH().dataset.add}`, dataset);
-      console.log(res)
+      const res = await api.post(`/${API_PATH().dataset.add}`, dataset);
       return res.data;
     },
     onSuccess: () => {

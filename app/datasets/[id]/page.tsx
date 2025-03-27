@@ -5,6 +5,7 @@ import ReactTable from "@/components/molecules/react-table";
 import Table from "@/components/molecules/table";
 import Pagination from "@/components/organisms/pagination";
 import { API_PATH } from "@/services/_path.service";
+import api from "@/services/api.service";
 import {
   CodeBracketIcon,
   DocumentArrowDownIcon,
@@ -35,12 +36,10 @@ const DatasetDetailPage = () => {
   const dataLists = useQuery({
     queryKey: ["datasets", "detail"],
     queryFn: async () => {
-      const response = await axios.get(
-        `http://194.59.165.146:8900/${API_PATH().dataset.getOne}`,
+      const response = await api.get(
+        `/${API_PATH().dataset.getOne}`,
         {params: {id: params.id}}
       );
-
-      console.log(response.data);
 
       setPagination((prev) => ({
         ...prev,

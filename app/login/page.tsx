@@ -1,16 +1,19 @@
 'use client';
 
+import { setItem } from "@/helpers/localstorage.helper";
 import { API_PATH } from "@/services/_path.service";
+import api from "@/services/api.service";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { QueryClient, QueryClientProvider, useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { redirect, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
 function LoginPage() {
   const searchParams = useSearchParams()
+  const router = useRouter()
   const redirectUrl = searchParams.get('redirect')
   const schema = yup.object().shape({
     username: yup.string().required('Username is required'),
@@ -36,13 +39,14 @@ function LoginPage() {
 
   const mutation = useMutation({
     mutationFn: async (newDataset: { username: string; password: string }) => {
-      const res = await axios.post(`http://194.59.165.146:8900/${API_PATH().auth.login}`, newDataset);
-      console.log(res)
-      return res.data;
+      const { data } = await api.post(`${API_PATH().auth.login}`, newDataset);
+      setItem('token', data.auth)
+      setItem('user', data.user)
+      return data;
     },
     onSuccess: () => {
       // Setelah sukses, refetch data agar data terbaru muncul
-      redirect(redirectUrl || '/')
+      router.push(redirectUrl || '/')
     },
   });
 
