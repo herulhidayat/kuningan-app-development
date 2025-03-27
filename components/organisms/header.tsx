@@ -22,7 +22,7 @@ export default function Header() {
     },
     {
       id: 2,
-      title: 'Dasbor',
+      title: 'Dashboard',
       href: '/dashboards',
     },
     {

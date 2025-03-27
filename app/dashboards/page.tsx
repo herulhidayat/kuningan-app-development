@@ -43,8 +43,8 @@ const DashboardsPage = () => {
   return (
     <div>
       <Hero
-        title="Dasbor"
-        description="Halaman Dasbor menyajikan visualisasi data interaktif dari berbagai kategori, seperti ekonomi, kesehatan, dan pendidikan, untuk memberikan gambaran cepat dan mendukung keputusan berbasis data."
+        title="Dashboard"
+        description="Halaman dashboard menyajikan visualisasi data interaktif dari berbagai kategori, seperti ekonomi, kesehatan, dan pendidikan, untuk memberikan gambaran cepat dan mendukung keputusan berbasis data."
       />
       <div className="flex items-center justify-center w-full text-[16px]/7 text-justify">
         <div className="flex flex-col rounded-lg my-5 px-3 w-full max-w-screen-2xl dark:bg-zinc-800">
