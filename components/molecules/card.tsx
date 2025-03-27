@@ -11,6 +11,7 @@ import { Modal, ModalBody, ModalFooter, ModalHeader } from "flowbite-react";
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 
 const Card = ({ dataSet, isSkeleton, handleDelete }: { dataSet?: Dataset; isSkeleton?: boolean, handleDelete?: (id: any) => void }) => {
   const router = useRouter();
@@ -22,6 +23,7 @@ const Card = ({ dataSet, isSkeleton, handleDelete }: { dataSet?: Dataset; isSkel
     subMessage: "",
     data: {}
   });
+  const isLoggedin = Cookies.get("authToken");
 
   return (
     <>
@@ -66,7 +68,7 @@ const Card = ({ dataSet, isSkeleton, handleDelete }: { dataSet?: Dataset; isSkel
           <p className='text-sm font-medium text-gray-500 dark:text-gray-400'>{dataSet?.data_source} • <span className='font-normal'>{moment(dataSet?.createdAt).format('DD MMMM YYYY, HH:mm')}</span></p>
         </div>
         <div>
-          {showAction && (
+          {showAction && isLoggedin && (
             <Dropdown 
               label="" 
               dismissOnClick={false} 

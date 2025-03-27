@@ -16,6 +16,8 @@ import axios from "axios";
 import { debounce } from "lodash";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import Skeleton from "react-loading-skeleton";
 
 export interface Dataset {
     _id: string;
@@ -41,6 +43,7 @@ const DatasetsPage = () => {
     count: 0,
   });
   const [params, setParams] = useState<any>({})
+  const isLoggedin = Cookies.get("authToken");
 
   const queryDataset = useQuery({
     queryKey: ["datasets", pagination.currentPage],
@@ -48,11 +51,9 @@ const DatasetsPage = () => {
       const response = await api.post(
         `/${API_PATH().dataset.getAll}`,
         {
-          params: {
-            ...params,
-            page: pagination.currentPage,
-            size: pagination.itemsPerPage
-          }
+          ...params,
+          page: pagination.currentPage,
+          size: pagination.itemsPerPage
         }
       );
 
@@ -80,7 +81,7 @@ const DatasetsPage = () => {
     if(search) {
       setParams({
         search: search,
-        sarchBy: ["data_name", "data_description"]
+        searchBy: ["data_name", "data_description"]
       })
     }
   };
@@ -111,7 +112,7 @@ const DatasetsPage = () => {
               <input
                 type="text"
                 id="Search"
-                placeholder="Search for..."
+                placeholder="Cari dataset..."
                 className="w-full rounded-md border-gray-200 ps-3 py-2.5 pe-10 shadow-xs sm:text-sm"
                 onChange={(e) => debounceSearch(e)}
               />
@@ -135,7 +136,7 @@ const DatasetsPage = () => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500"
               >
                 <option className="dark:bg-zinc-700" value="">
-                  Source
+                  Sumber
                 </option>
               </select>
               <select
@@ -144,11 +145,13 @@ const DatasetsPage = () => {
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500"
               >
                 <option className="dark:bg-zinc-700" value="">
-                  Category
+                  Kategori
                 </option>
               </select>
 
-              <button onClick={() => router.push("/datasets/add")} className="text-white bg-emerald-600 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-[20rem] px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">Add Dataset</button>
+              {isLoggedin && (
+                <button onClick={() => router.push("/datasets/add")} className="text-white bg-emerald-600 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-[25rem] px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">Tambah Dataset</button>
+              )}
             </div>
           </div>
 
@@ -157,12 +160,18 @@ const DatasetsPage = () => {
               {Intl.NumberFormat().format(pagination.count)}
             </h4>
             <h4 className="font-medium text-base opacity-50 hover:opacity-100 hover:text-emerald-600">
-              Datasets Found
+              Dataset ditemukan
             </h4>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {queryDataset.isLoading && <Card isSkeleton />}
+            {queryDataset.isLoading && (
+              Array.from({ length: 3 }).map((_, index) => (
+                <div key={index}>
+                  <Skeleton height={125} />
+                </div>
+              ))
+            )}
 
             {queryDataset.data?.data?.length > 0 &&
               queryDataset.data?.data?.map(
