@@ -8,6 +8,5 @@ export const columnSetter = (dataColumn:any) => {
         disableFilters: false,
     }))
 
-    console.log(columns)
     return columns
 }

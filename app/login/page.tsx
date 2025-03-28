@@ -21,6 +21,7 @@ function LoginPage() {
     password: yup.string().required("Password is required"),
     // remeberMe: yup.boolean()
   });
+  const [errorMessage, setErrorMessage] = useState('');
 
   const [formModel] = useState<any>({
     username: "",
@@ -40,7 +41,7 @@ function LoginPage() {
 
   const mutation = useMutation({
     mutationFn: async (newDataset: { username: string; password: string }) => {
-      const { data } = await api.post(`${API_PATH().auth.login}`, newDataset);
+      const { data } = await axios.post(`api/${API_PATH().auth.login}`, newDataset);
       setItem('token', data.auth)
       setItem('user', data.user)
       return data;
@@ -50,6 +51,9 @@ function LoginPage() {
       Cookies.set("authToken", data?.auth?.token, { expires: expirationDate });
       router.push(redirectUrl || '/')
     },
+    onError: (error: any) => {
+      setErrorMessage(error.response.data.message);
+    }
   });
 
   // Handle form submission
@@ -62,6 +66,13 @@ function LoginPage() {
       <div className="w-full flex flex-1 justify-center items-center">
         <div className="border border-gray-300 dark:border-gray-800 rounded-xl p-8 w-[30rem] flex flex-col gap-8">
           <h1 className="text-2xl font-bold">Sign In</h1>
+          {mutation.isError && (
+            <div className="flex items-center p-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-red-950 dark:text-red-400" role="alert">
+              <div>
+                <span className="font-medium">Login gagal!</span> {errorMessage}
+              </div>
+            </div>
+          )}
           <form onSubmit={handleSubmit((data) => handleSubmitForm(data))}>
             <div className="mb-5">
               <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>

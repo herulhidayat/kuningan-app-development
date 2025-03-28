@@ -4,6 +4,7 @@ import QueryProvider from "@/components/atoms/query-provider";
 import SearchBar from "@/components/atoms/search-bar";
 import TitleHeader from "@/components/atoms/title-header";
 import ReactTable from "@/components/molecules/react-table";
+import FormDataRole from "@/components/organisms/form-data-role";
 import Pagination from "@/components/organisms/pagination";
 import EditIcon from "@/components/ui/icons/EditIcon";
 import MoreIcon from "@/components/ui/icons/MoreIcon";
@@ -14,9 +15,11 @@ import { Query, QueryClient, QueryClientProvider, useMutation, useQuery } from "
 import { Dropdown, DropdownItem, Modal, ModalBody, ModalFooter, ModalHeader } from "flowbite-react";
 import { size } from "lodash";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 
 function Role() {
+    const router = useRouter();
     const [pagination, setPagination] = useState({
         currentPage: 1,
         itemsPerPage: 10,
@@ -27,6 +30,11 @@ function Role() {
         "order": "DESC",
         "orderBy": "createdAt",
     })
+
+    const [modal, setModal] = useState<any>({
+        title: "",
+        show: false,
+    });
 
     const [modalConfirm, setModalConfirm] = useState<any>({
         title: "",
@@ -106,7 +114,6 @@ function Role() {
     ]
 
     const ActionButton = (data: any) => {
-        console.log(data?.item?.action)
         return (
             <Dropdown
                 label=""
@@ -116,7 +123,7 @@ function Role() {
                         <MoreIcon />
                     </div>
                 }>
-                <DropdownItem className='flex items-center gap-2'><div className='text-blue-500'><EditIcon /></div> Ubah</DropdownItem>
+                <DropdownItem className='flex items-center gap-2' onClick={() => {setModal((prev: any) => ({ ...prev, title: "Ubah Data", show: true})); router.replace(`/administrator/role?id=${data?.item?.action}`)}}><div className='text-blue-500'><EditIcon /></div> Ubah</DropdownItem>
                 <DropdownItem className='flex items-center gap-2' onClick={() => setModalConfirm((prev: any) => ({ ...prev, title: "Hapus Dataset", message: "Apakah Anda yakin ingin menghapus dataset ini?", show: true, subMessage: "Dataset yang telah dihapus tidak dapat dikembalikan", data: data?.item?.action }))}><div className='text-red-500'><TrashIcon /></div> Hapus</DropdownItem>
             </Dropdown>
         )
@@ -144,7 +151,7 @@ function Role() {
                 <TitleHeader title="Role" subtitle="Kelola pengguna berdasarkan posisi dan tentukan hak akses mereka sesuai dengan peran dan tanggung jawabnya." />
                 <div className="flex w-full justify-between">
                     <SearchBar callbackSearch={handleSearch} />
-                    <button className="text-white bg-emerald-600 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-fit px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">Tambah Role</button>
+                    <button className="text-white bg-emerald-600 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-fit px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800" onClick={() => setModal((prev: any) => ({ ...prev, show: true, title: "Tambah Role" }))}>Tambah Role</button>
                 </div>
                 <div className="w-full flex flex-col gap-3">
                     {renderTable}
@@ -156,6 +163,10 @@ function Role() {
                     />
                 </div>
             </div>
+
+            <Modal show={modal.show} position="center" onClose={() => {setModal((prev: any) => ({ ...prev, show: false }));router.replace('/administrator/role')}}>
+                <FormDataRole modalProps={modal} onClose={() => setModal((prev: any) => ({ ...prev, show: false }))} refetch={queryDataset.refetch} />
+            </Modal>
 
             <Modal show={modalConfirm.show} position="center" onClose={() => setModalConfirm((prev: any) => ({ ...prev, show: false }))}>
                 <ModalHeader>{modalConfirm.title}</ModalHeader>

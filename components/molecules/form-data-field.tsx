@@ -48,7 +48,6 @@ export default function FormDataField({ dataField, setDataField }: IFormDataFiel
   };
 
   const handleRemoveField = (index: number) => {
-    console.log(index)
     setDataField((prev: any) => {
       prev.splice(index, 1);
       return [...prev];
@@ -87,7 +86,6 @@ export default function FormDataField({ dataField, setDataField }: IFormDataFiel
         const oldIndex = prev.indexOf(active.id);
         const newIndex = prev.indexOf(over.id);
         
-        console.log(event, active.id !== over.id, arrayMove(prev, oldIndex, newIndex))
         return arrayMove(prev, oldIndex, newIndex);
       });
     }
