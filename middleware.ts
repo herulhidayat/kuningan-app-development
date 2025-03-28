@@ -7,12 +7,7 @@ const protectedRoutes = ['/datasets/add', '/administrator/user-management', '/ad
 export default async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname
   const isProtectedRoute = protectedRoutes.includes(path)
-  const authToken =  req.cookies.get("authToken") // Perbaikan: baca cookie dari `req.cookies`
-
-  // Debugging logs
-  console.log("Path:", path)
-  console.log("isProtectedRoute:", isProtectedRoute)
-  console.log("authToken:", authToken)
+  const authToken =  req.cookies.get("authToken")
 
   if (isProtectedRoute && !authToken) {
     const callbackUrl = encodeURIComponent(req.nextUrl.pathname)
