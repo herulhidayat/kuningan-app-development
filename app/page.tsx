@@ -1,14 +1,21 @@
+"use client";
+
 import Hero from "@/components/organisms/hero";
 import HomepageSection from "@/components/pages/homepage-section";
+import { API_PATH } from "@/services/_path.service";
+import api from "@/services/api.service";
 import {
   AcademicCapIcon,
   GlobeAmericasIcon,
   HeartIcon,
   TruckIcon,
 } from "@heroicons/react/20/solid";
+import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
+import moment from "moment";
 import Link from "next/link";
+import { useCallback, useState } from "react";
 
-export default function Home() {
+function Home() {
   const categories = [
     {
       id: 1,
@@ -51,6 +58,92 @@ export default function Home() {
       views: 200,
     },
   ];
+
+  const [paramsTerbaru, setParamsTerbaru] = useState({
+    "order": "ASC",
+    "orderBy": "createdAt",
+    "page": 1,
+    "size": 10,
+    range: {
+      from: moment().startOf("day").unix() * 1000,
+      to: moment().endOf("day").unix() * 1000,
+      field: "updatedAt"
+    }
+  })
+
+  const [paramsPopuler, setParamsPopuler] = useState({
+    "order": "ASC",
+    "orderBy": "count_access",
+    "page": 1,
+    "size": 10,
+    range: {
+      from: moment().startOf("day").unix() * 1000,
+      to: moment().endOf("day").unix() * 1000,
+      field: "updatedAt"
+    }
+  })
+
+  const queryDatasetTerbaru = useQuery({
+    queryKey: ["terbaru", paramsTerbaru],
+    queryFn: async () => {
+      const response = await api.post(
+        `/${API_PATH().dataset.getAll}`,
+        {
+          ...paramsTerbaru
+        }
+      );
+      return response.data;
+    },
+  });
+
+  const queryDatasetPopuler = useQuery({
+    queryKey: ["populer", paramsPopuler],
+    queryFn: async () => {
+      const response = await api.post(
+        `/${API_PATH().dataset.getAll}`,
+        {
+          ...paramsPopuler
+        }
+      );
+      return response.data;
+    },
+  });
+
+  const timeframeTerbaru = useCallback((type: string) => {
+    if(type === "today") {
+      setParamsTerbaru((prev:any) => ({
+        ...prev,
+        range: {
+          from: moment().startOf("day").unix() * 1000,
+          to: moment().endOf("day").unix() * 1000,
+          field: "updatedAt"
+        }
+      }))
+    } else {
+      setParamsTerbaru((prev:any) => ({
+        ...prev,
+        range: undefined
+      }))
+    }
+  }, [])
+
+  const timeframePopuler = useCallback((type: string) => {
+    if(type === "today") {
+      setParamsPopuler((prev:any) => ({
+        ...prev,
+        range: {
+          from: moment().startOf("day").unix() * 1000,
+          to: moment().endOf("day").unix() * 1000,
+          field: "updatedAt"
+        }
+      }))
+    } else {
+      setParamsPopuler((prev:any) => ({
+        ...prev,
+        range: undefined
+      }))
+    }
+  }, [])
   return (
     <>
       <Hero
@@ -107,21 +200,23 @@ export default function Home() {
         </div>
       </Hero>
       <div className="flex h-full w-full justify-center ">
-        <div className="md:px-4.5 dark:divide-washed-dark h-full w-full max-w-screen-2xl divide-y px-3 lg:px-6 min-h-screen">
+        <div className="md:px-4.5 dark:divide-washed-dark h-full w-full max-w-screen-2xl divide-y px-3 lg:px-6">
           <HomepageSection
             title="Dataset terbaru"
             date="22 Jan 2025, 23:59"
             description="Kategori data ini berdasarkan pengelompokan data yang dibuat
                     oleh Pemerintah Kabupaten Kuningan."
-            cards={categories}
+            cards={queryDatasetTerbaru}
+            callbackTimeframe={timeframeTerbaru}
           />
           <HomepageSection
             title="Dataset populer"
             date="22 Jan 2025, 23:59"
             description="berikut adalah daftar dataset terpopular kami"
-            cards={categories}
+            cards={queryDatasetPopuler}
+            callbackTimeframe={timeframePopuler}
           />
-          <section className="py-8 lg:py-12 dark:border-zinc-800">
+          {/* <section className="py-8 lg:py-12 dark:border-zinc-800">
             <div className="flex flex-col gap-6 lg:gap-8">
               <div className="flex flex-col gap-y-3">
                 <div className="flex flex-col flex-wrap items-start gap-2 lg:flex-row lg:items-center lg:justify-between">
@@ -140,9 +235,19 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </section>
+          </section> */}
         </div>
       </div>
     </>
   );
+}
+
+const queryClient = new QueryClient();
+
+export default function HomePage() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Home />
+    </QueryClientProvider>
+  )
 }
