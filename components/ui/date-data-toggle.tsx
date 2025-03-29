@@ -1,9 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 
-export default function DateDataToggle() {
+interface Props {
+  callbackSelected: (selected: string) => void;
+}
+
+export default function DateDataToggle({ callbackSelected }: Props) {
   const [dateData, setDateData] = useState("today");
+
+  useEffect(() => {
+    callbackSelected(dateData);
+  }, [dateData]);
 
   if (dateData === "today") {
     return (

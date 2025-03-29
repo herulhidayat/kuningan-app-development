@@ -1,67 +1,76 @@
 import Link from 'next/link'
 import { ElementType } from 'react'
 import DateDataToggle from '../ui/date-data-toggle'
+import Skeleton from 'react-loading-skeleton'
+import NoResult from '../ui/illustrations/NoResult'
 
 interface SectionPropsInterface {
   title: string
   date: string
   description: string
-  cards: {
-    id: number
-    href: string
-    name: string
-    title: string
-    views: number
-    icon: ElementType
-  }[]
+  cards: any
+  callbackTimeframe: (value: string) => void
 }
 
-export default function HomepageSection(sectionProps: SectionPropsInterface) {
+export default function HomepageSection({ title, date, description, cards, callbackTimeframe}: SectionPropsInterface) {
   return (
     <section className="py-8 lg:py-12 dark:border-zinc-800">
       <div className="flex flex-col gap-6 lg:gap-8">
         <div className="flex flex-col gap-y-3">
           <div className="flex flex-col flex-wrap items-start gap-2 lg:flex-row lg:items-center lg:justify-between">
-            <h4 className="font-bold text-lg">{sectionProps.title}</h4>
+            <h4 className="font-bold text-lg">{title}</h4>
             <span className="text-dim text-right text-sm text-gray-500 dark:text-gray-400">
-              Data terupdate pada {sectionProps.date}
+              Data terupdate pada {date}
             </span>
           </div>
           <div className="text-dim flex w-full flex-wrap justify-between gap-y-3 md:flex-nowrap md:items-start gap-x-6">
             <p className="whitespace-pre-line text-base md:max-w-[70%] text-gray-500 dark:text-gray-400">
-              {sectionProps.description}
+              {description}
             </p>
             <div className="flex w-full gap-3 md:w-auto md:justify-end">
               <ul className="flex flex-wrap">
-                <DateDataToggle />
+                <DateDataToggle callbackSelected={callbackTimeframe}/>
               </ul>
             </div>
           </div>
         </div>
         <div>
-          <div className="flex flex-wrap items-end justify-between gap-3">
+          {/* <div className="flex flex-wrap items-end justify-between gap-3">
             <div></div>
             <div className="flex-wrap items-center justify-between gap-2.5 hidden">
               <div className="flex flex-wrap">
-                <button className="group flex flex-row rounded-full px-[10px] py-1 text-sm outline-none transition-colors bg-outline dark:bg-washed-dark font-medium text-black dark:text-white">
+                <button onClick={() => callbackTimeframe('today')} className="group flex flex-row rounded-full px-[10px] py-1 text-sm outline-none transition-colors bg-outline dark:bg-washed-dark font-medium text-black dark:text-white">
                   Today
                 </button>
-                <button className="group flex flex-row rounded-full px-[10px] py-1 text-sm outline-none transition-colors text-dim bg-transparent hover:text-black dark:hover:text-white">
+                <button onClick={() => callbackTimeframe('all-time')} className="group flex flex-row rounded-full px-[10px] py-1 text-sm outline-none transition-colors text-dim bg-transparent hover:text-black dark:hover:text-white">
                   All-time
                 </button>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="w-full">
             <div className="overflow-visible">
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
-                {sectionProps.cards.map((card) => {
+                {cards?.isError && (
+                  <div className='px-6 py-4 text-center font-semibold text-gray-500'>
+                    <div className='flex justify-center w-full text-emerald-500'>
+                      <NoResult />
+                    </div>
+                    <span>Maaf, data tidak ditemukan</span>
+                  </div>
+                )}
+                {cards?.isLoading && 
+                  Array.from({ length: 5 }, (_, index) => (
+                    <Skeleton key={index} height={100} />
+                  ))
+                }
+                {cards?.data?.data?.map((card:any, index: number) => {
                   return (
-                    <Link key={card.id} href={card.href}>
+                    <Link key={index} href={`/datasets/${card._id}`}>
                       <div className="border-outline hover:border-emerald-600 hover:bg-emerald-100/10 dark:hover:bg-washed-dark/50 dark:border-zinc-800 dark:hover:border-outlineHover-dark group w-full space-y-2 rounded-xl border p-3 transition-colors">
                         <div className="relative flex items-center gap-3 text-emerald-700">
-                          <card.icon height={20} width={20} />
-                          <p className="text-dim font-semibold text-sm text-gray-500">{card.name}</p>
+                          {/* <card.icon height={20} width={20} /> */}
+                          <p className="text-dim font-semibold text-sm text-gray-500 capitalize">{card.category}</p>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 20 20"
@@ -78,9 +87,9 @@ export default function HomepageSection(sectionProps: SectionPropsInterface) {
                           </svg>
                         </div>
                         <div className="relative overflow-hidden">
-                          <p className="truncate font-medium dark:text-white">{card.title}</p>
+                          <p className="truncate font-medium dark:text-white">{card.data_name}</p>
                           <p className="text-dim font-medium text-gray-500 transition-transform group-hover:translate-y-6">
-                            {card.views} Dilihat
+                            {card.count_access} Dilihat
                           </p>
                           <p className="text-emerald-700 dark:text-emerald-600 absolute -bottom-6 whitespace-nowrap transition-transform group-hover:-translate-y-6 group-hover:duration-300">
                             Tekan untuk jelajahi
