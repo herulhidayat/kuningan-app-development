@@ -24,6 +24,14 @@ export const API_PATH = () => {
         add: "v1/role/add",
         update: "v1/role/update",
         delete: "v1/role/delete",
-      }
+      },
+      catalog: {
+        getAll: "v1/catalog/get-all",
+        getOne: "v1/catalog/get-one",
+        add: "v1/catalog/add",
+        update: "v1/catalog/update",
+        delete: "v1/catalog/delete",
+        getAllSource: "v1/catalog/get-all-source",
+      },
     }
 }

@@ -20,6 +20,7 @@ import Skeleton from "react-loading-skeleton";
 import SearchBar from "@/components/atoms/search-bar";
 import NoResult from "@/components/ui/illustrations/NoResult";
 import { getItem } from "@/helpers/localstorage.helper";
+import SelectDynamic from "@/components/organisms/select-dynamic";
 
 export interface Dataset {
     _id: string;
@@ -47,6 +48,7 @@ const DatasetsPage = () => {
   const [params, setParams] = useState<any>({
     "order": "DESC",
     "orderBy": "createdAt",
+    "filter": []
   })
   const isLoggedin = Cookies.get("authToken");
   const access = getItem("user")?.privileges?.find((item: any) => item.id === 'dataset')
@@ -116,6 +118,46 @@ const DatasetsPage = () => {
     queryDataset.refetch();
   }, [pagination.currentPage, params]);
 
+  const callbackSource = (source: any) => {
+    if (source) {
+      setParams((prev: any) => ({
+        ...prev,
+        filter: [
+          ...prev.filter.filter((prev: any) => prev.field !== "data_source"),
+          { 
+            field: "data_source", 
+            value: source 
+          }
+        ],
+      }))
+    } else {
+      setParams((prev: any) => ({
+        ...prev,
+        filter: prev.filter.filter((item: any) => item.field !== "data_source")
+      }))
+    }
+  }
+
+  const callbackCategory = (category: any) => {
+    if (category) {
+      setParams((prev: any) => ({
+        ...prev,
+        filter: [
+          ...prev.filter.filter((prev: any) => prev.field !== "category"),
+          { 
+            field: "category", 
+            value: category 
+          }
+        ],
+      }))
+    } else {
+      setParams((prev: any) => ({
+        ...prev,
+        filter: prev.filter.filter((item: any) => item.field !== "category")
+      }))
+    }
+  }
+
   return (
     <>
       <Hero
@@ -130,24 +172,8 @@ const DatasetsPage = () => {
             <SearchBar placeholder="Cari dataset..." callbackSearch={handleSearch} />
 
             <div className="flex flex-row gap-4">
-              <select
-                name="HeadlineAct"
-                id="HeadlineAct"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500"
-              >
-                <option className="dark:bg-zinc-700" value="">
-                  Sumber
-                </option>
-              </select>
-              <select
-                name="HeadlineAct"
-                id="HeadlineAct"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-emerald-500 dark:focus:border-emerald-500"
-              >
-                <option className="dark:bg-zinc-700" value="">
-                  Kategori
-                </option>
-              </select>
+              <SelectDynamic name="Sumber" pathUrl={API_PATH().catalog.getAllSource} callback={callbackSource} fieldPath="name"/>
+              <SelectDynamic name="Kategori" pathUrl={API_PATH().catalog.getAll} callback={callbackCategory} fieldPath="category"/>
 
               {(isLoggedin && access?.privillages?.add) && (
                 <button onClick={() => router.push("/datasets/add")} className="text-white bg-emerald-600 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-[25rem] px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">Tambah Dataset</button>
