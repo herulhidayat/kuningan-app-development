@@ -9,6 +9,7 @@ import Pagination from "@/components/organisms/pagination";
 import EditIcon from "@/components/ui/icons/EditIcon";
 import MoreIcon from "@/components/ui/icons/MoreIcon";
 import TrashIcon from "@/components/ui/icons/TrashIcon";
+import { getItem } from "@/helpers/localstorage.helper";
 import { API_PATH } from "@/services/_path.service";
 import api from "@/services/api.service";
 import { Query, QueryClient, QueryClientProvider, useMutation, useQuery } from "@tanstack/react-query";
@@ -20,6 +21,8 @@ import { title } from "process";
 import { useCallback, useMemo, useState } from "react";
 
 function UserManagement() {
+    const access = getItem("user")?.privileges?.find((item: any) => item.id === 'user-management')
+
     const router = useRouter();
     const [pagination, setPagination] = useState({
         currentPage: 1,
@@ -136,8 +139,12 @@ function UserManagement() {
                         <MoreIcon />
                     </div>
                 }>
-                <DropdownItem className='flex items-center gap-2' onClick={() => {setModal((prev: any) => ({ ...prev, title: "Ubah Data", show: true})); router.replace(`/administrator/user-management?id=${data?.item?.action}`)}}><div className='text-blue-500'><EditIcon /></div> Ubah</DropdownItem>
-                <DropdownItem className='flex items-center gap-2' onClick={() => setModalConfirm((prev: any) => ({ ...prev, title: "Hapus Dataset", message: "Apakah Anda yakin ingin menghapus dataset ini?", show: true, subMessage: "Dataset yang telah dihapus tidak dapat dikembalikan", data: data?.item?.action }))}><div className='text-red-500'><TrashIcon /></div> Hapus</DropdownItem>
+                    {access?.privillages?.update &&
+                        <DropdownItem className='flex items-center gap-2' onClick={() => {setModal((prev: any) => ({ ...prev, title: "Ubah Data", show: true})); router.replace(`/administrator/user-management?id=${data?.item?.action}`)}}><div className='text-blue-500'><EditIcon /></div> Ubah</DropdownItem>
+                    }
+                    {access?.privillages?.delete &&
+                        <DropdownItem className='flex items-center gap-2' onClick={() => setModalConfirm((prev: any) => ({ ...prev, title: "Hapus Dataset", message: "Apakah Anda yakin ingin menghapus dataset ini?", show: true, subMessage: "Dataset yang telah dihapus tidak dapat dikembalikan", data: data?.item?.action }))}><div className='text-red-500'><TrashIcon /></div> Hapus</DropdownItem>
+                    }
             </Dropdown>
         )
     }
@@ -166,7 +173,9 @@ function UserManagement() {
                 <TitleHeader title="User Management" subtitle="Kelola informasi pengguna dan pengaturannya. Anda dapat menyesuaikan detail pengguna, mengatur hak akses, dan memperbarui informasi pengguna." />
                 <div className="flex w-full justify-between">
                     <SearchBar callbackSearch={handleSearch} />
-                    <button className="text-white bg-emerald-600 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-fit px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800" onClick={() => setModal((prev: any) => ({ ...prev, show: true, title: "Tambah Pengguna" }))}>Tambah Pengguna</button>
+                    {access?.privillages?.add &&
+                        <button className="text-white bg-emerald-600 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-fit px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800" onClick={() => setModal((prev: any) => ({ ...prev, show: true, title: "Tambah Pengguna" }))}>Tambah Pengguna</button>
+                    }
                 </div>
                 <div className="w-full flex flex-col gap-3">
                     {renderTable}

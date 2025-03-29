@@ -203,7 +203,7 @@ function Home() {
         <div className="md:px-4.5 dark:divide-washed-dark h-full w-full max-w-screen-2xl divide-y px-3 lg:px-6">
           <HomepageSection
             title="Dataset terbaru"
-            date="22 Jan 2025, 23:59"
+            date={moment().format("DD MMMM YYYY")}
             description="Kategori data ini berdasarkan pengelompokan data yang dibuat
                     oleh Pemerintah Kabupaten Kuningan."
             cards={queryDatasetTerbaru}
@@ -211,7 +211,7 @@ function Home() {
           />
           <HomepageSection
             title="Dataset populer"
-            date="22 Jan 2025, 23:59"
+            date={moment().format("DD MMMM YYYY")}
             description="berikut adalah daftar dataset terpopular kami"
             cards={queryDatasetPopuler}
             callbackTimeframe={timeframePopuler}
