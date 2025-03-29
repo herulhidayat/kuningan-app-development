@@ -19,6 +19,7 @@ import Cookies from "js-cookie";
 import Skeleton from "react-loading-skeleton";
 import SearchBar from "@/components/atoms/search-bar";
 import NoResult from "@/components/ui/illustrations/NoResult";
+import { getItem } from "@/helpers/localstorage.helper";
 
 export interface Dataset {
     _id: string;
@@ -48,6 +49,7 @@ const DatasetsPage = () => {
     "orderBy": "createdAt",
   })
   const isLoggedin = Cookies.get("authToken");
+  const access = getItem("user")?.privileges?.find((item: any) => item.id === 'dataset')
 
   const queryDataset = useQuery({
     queryKey: ["datasets", pagination.currentPage, params],
@@ -147,7 +149,7 @@ const DatasetsPage = () => {
                 </option>
               </select>
 
-              {isLoggedin && (
+              {(isLoggedin && access?.privillages?.add) && (
                 <button onClick={() => router.push("/datasets/add")} className="text-white bg-emerald-600 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-[25rem] px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">Tambah Dataset</button>
               )}
             </div>

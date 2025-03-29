@@ -13,6 +13,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
+import { getItem } from '@/helpers/localstorage.helper';
 
 const Card = ({ dataSet, isSkeleton, handleDelete }: { dataSet?: Dataset; isSkeleton?: boolean, handleDelete?: (id: any) => void }) => {
   const router = useRouter();
@@ -25,6 +26,7 @@ const Card = ({ dataSet, isSkeleton, handleDelete }: { dataSet?: Dataset; isSkel
     data: {}
   });
   const isLoggedin = Cookies.get("authToken");
+  const access = getItem("user")?.privileges?.find((item: any) => item.id === 'dataset')
 
   return (
     <>
@@ -69,7 +71,7 @@ const Card = ({ dataSet, isSkeleton, handleDelete }: { dataSet?: Dataset; isSkel
           <p className='text-sm font-medium text-gray-500 dark:text-gray-400'>{dataSet?.data_source} • <span className='font-normal'>{moment(dataSet?.createdAt).format('DD MMMM YYYY, HH:mm')}</span></p>
         </div>
         <div>
-          {showAction && isLoggedin && (
+          {showAction && isLoggedin && (access?.privillages?.edit || access?.privillages?.delete) && (
             <Dropdown 
               label="" 
               dismissOnClick={false} 
@@ -78,8 +80,12 @@ const Card = ({ dataSet, isSkeleton, handleDelete }: { dataSet?: Dataset; isSkel
                   <MoreIcon />
                 </div>
               }>
-                <DropdownItem className='flex items-center gap-2' onClick={() => router.push(`/datasets/edit/${dataSet?._id}`)}><div className='text-blue-500'><EditIcon /></div> Ubah</DropdownItem>
-                <DropdownItem className='flex items-center gap-2' onClick={() => setModalConfirm((prev:any) => ({...prev, title: "Hapus Dataset", message: "Apakah Anda yakin ingin menghapus dataset ini?", show: true, subMessage: "Dataset yang telah dihapus tidak dapat dikembalikan", data: dataSet}))}><div className='text-red-500'><TrashIcon /></div> Hapus</DropdownItem>
+                {access?.privillages?.update &&
+                  <DropdownItem className='flex items-center gap-2' onClick={() => router.push(`/datasets/edit/${dataSet?._id}`)}><div className='text-blue-500'><EditIcon /></div> Ubah</DropdownItem>
+                }
+                {access?.privillages?.delete &&
+                  <DropdownItem className='flex items-center gap-2' onClick={() => setModalConfirm((prev:any) => ({...prev, title: "Hapus Dataset", message: "Apakah Anda yakin ingin menghapus dataset ini?", show: true, subMessage: "Dataset yang telah dihapus tidak dapat dikembalikan", data: dataSet}))}><div className='text-red-500'><TrashIcon /></div> Hapus</DropdownItem>
+                }
             </Dropdown>
           )}
         </div>

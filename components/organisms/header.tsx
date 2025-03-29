@@ -17,6 +17,7 @@ export default function Header() {
   const pathname = usePathname()
   const user = getItem('user')
   const isLoggedin = Cookies.get("authToken")
+  const access = getItem("user")?.privileges
 
   function handleClick() {
     setVisible(!visible)
@@ -89,7 +90,9 @@ export default function Header() {
                             </svg>
                           </div>
                         }>
-                          <DropdownItem className='flex items-center gap-2' onClick={() => {router.push('/administrator/user-management')}}>Administrator</DropdownItem>
+                          {(access?.find((item: any) => item?.id === "user-management")?.privillages?.view || access?.find((item: any) => item?.id === "role")?.privillages?.view) &&
+                            <DropdownItem className='flex items-center gap-2' onClick={() => {router.push(access?.find((item: any) => item?.id === "user-management")?.privillages?.view ? '/administrator/user-management' : access?.find((item: any) => item?.id === "role")?.privillages?.view ? '/administrator/role' : '')}}>Administrator</DropdownItem>
+                          }
                           <DropdownItem className='flex items-center gap-2' onClick={() => {logout();router.push('/login')}}>Logout</DropdownItem>
                       </Dropdown>
                     ) : (

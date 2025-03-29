@@ -1,4 +1,5 @@
 "use client"
+import { getItem } from "@/helpers/localstorage.helper";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -8,6 +9,7 @@ export default function AdministratorLayout({
   children: React.ReactNode;
 }>) {
   const pathName = usePathname();
+  const access = getItem("user")?.privileges
 
   return (
     <>
@@ -16,8 +18,12 @@ export default function AdministratorLayout({
           <div className="grid grid-cols-12 gap-4">
             <div className="col-span-3">
               <div className="flex flex-col gap-3">
-                <Link className={`${pathName === "/administrator/user-management" ? "text-emerald-600 bg-emerald-50 rounded-e-lg border-s-4 border-emerald-500 dark:bg-emerald-900 dark:text-emerald-400" : ""} px-4 py-2`} href="/administrator/user-management">User Management</Link>
-                <Link className={`${pathName === "/administrator/role" ? "text-emerald-600 bg-emerald-50 rounded-e-lg border-s-4 border-emerald-500 dark:bg-emerald-900 dark:text-emerald-400" : ""} px-4 py-2`} href="/administrator/role">Role</Link>
+                {access?.find((item: any) => item?.id === "user-management")?.privillages?.view && 
+                  <Link className={`${pathName === "/administrator/user-management" ? "text-emerald-600 bg-emerald-50 rounded-e-lg border-s-4 border-emerald-500 dark:bg-emerald-900 dark:text-emerald-400" : ""} px-4 py-2`} href="/administrator/user-management">User Management</Link>
+                }
+                {access?.find((item: any) => item?.id === "role")?.privillages?.view &&
+                  <Link className={`${pathName === "/administrator/role" ? "text-emerald-600 bg-emerald-50 rounded-e-lg border-s-4 border-emerald-500 dark:bg-emerald-900 dark:text-emerald-400" : ""} px-4 py-2`} href="/administrator/role">Role</Link>
+                }
               </div>
             </div>
             <div className="col-span-9">
