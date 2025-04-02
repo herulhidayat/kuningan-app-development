@@ -53,7 +53,7 @@ export default function HomepageSection({ title, date, description, cards, callb
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5">
                 {cards?.isError && (
                   <div className='px-6 py-4 text-center font-semibold text-gray-500'>
-                    <div className='flex justify-center w-full text-emerald-500'>
+                    <div className='flex justify-center w-full text-primary-500'>
                       <NoResult />
                     </div>
                     <span>Maaf, data tidak ditemukan</span>
@@ -67,8 +67,8 @@ export default function HomepageSection({ title, date, description, cards, callb
                 {cards?.data?.data?.map((card:any, index: number) => {
                   return (
                     <Link key={index} href={`/datasets/${card._id}`}>
-                      <div className="border-outline hover:border-emerald-600 hover:bg-emerald-100/10 dark:hover:bg-washed-dark/50 dark:border-zinc-800 dark:hover:border-outlineHover-dark group w-full space-y-2 rounded-xl border p-3 transition-colors">
-                        <div className="relative flex items-center gap-3 text-emerald-700">
+                      <div className="border-outline hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-950 dark:border-zinc-800 dark:hover:border-primary-500 group w-full space-y-2 rounded-xl border p-3 transition-colors">
+                        <div className="relative flex items-center gap-3 text-primary-600">
                           {/* <card.icon height={20} width={20} /> */}
                           <p className="text-dim font-semibold text-sm text-gray-500 capitalize">{card.category}</p>
                           <svg
@@ -91,7 +91,7 @@ export default function HomepageSection({ title, date, description, cards, callb
                           <p className="text-dim font-medium text-gray-500 transition-transform group-hover:translate-y-6">
                             {card.count_access} Dilihat
                           </p>
-                          <p className="text-emerald-700 dark:text-emerald-600 absolute -bottom-6 whitespace-nowrap transition-transform group-hover:-translate-y-6 group-hover:duration-300">
+                          <p className="text-primary-600 dark:text-primary-500 absolute -bottom-6 whitespace-nowrap transition-transform group-hover:-translate-y-6 group-hover:duration-300">
                             Tekan untuk jelajahi
                           </p>
                         </div>

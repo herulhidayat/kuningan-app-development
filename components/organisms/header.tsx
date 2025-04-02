@@ -25,15 +25,20 @@ export default function Header() {
 
   const menus: { id: number; title: string; href: string }[] = [
     {
-      id: 1,
-      title: 'Beranda',
+      id: 0,
+      title: '100 Hari Kerja',
       href: '/',
     },
     {
-      id: 2,
-      title: 'Dashboard',
-      href: '/dashboards',
+      id: 1,
+      title: 'Beranda',
+      href: '/home',
     },
+    // {
+    //   id: 2,
+    //   title: 'Dashboard',
+    //   href: '/dashboards',
+    // },
     {
       id: 3,
       title: 'Dataset',
@@ -53,7 +58,7 @@ export default function Header() {
           <div className="flex w-full items-center gap-4">
             <Link href="/">
               <div className="flex cursor-pointer gap-2">
-                <div className="flex w-6 items-center justify-center text-emerald-600">
+                <div className="flex w-6 items-center justify-center text-primary-600">
                   <CursorArrowRaysIcon />
                 </div>
                 <h4 className="font-bold">data.kuningankab.go.id</h4>
@@ -66,7 +71,7 @@ export default function Header() {
                     <Link
                       key={menu.id}
                       href={menu.href}
-                      className="hover:bg-gray-100 dark:hover:bg-zinc-800 flex items-center gap-2 rounded-none px-2 py-2 text-sm font-semibold transition hover:cursor-pointer md:rounded-md md:py-[6px]"
+                      className={`${pathname === menu.href ? 'bg-gray-100 dark:bg-zinc-800' : ''} hover:bg-gray-100 dark:hover:bg-zinc-800 flex items-center gap-2 rounded-none px-2 py-2 text-sm font-semibold transition hover:cursor-pointer md:rounded-md md:py-[6px]`}
                     >
                       {menu.title}
                     </Link>
@@ -96,7 +101,7 @@ export default function Header() {
                           <DropdownItem className='flex items-center gap-2' onClick={() => {logout();router.push('/login')}}>Logout</DropdownItem>
                       </Dropdown>
                     ) : (
-                      <button onClick={() => router.push(`/login${pathname !== '/' ? `?${new URLSearchParams({redirect:pathname}).toString()}` : ''}`)} className="shadow-button flex items-center gap-1.5 rounded-md px-3 py-1.5 text-start text-sm font-medium text-black dark:text-white active:bg-washed hover:dark:bg-washed-dark/50 active:dark:bg-washed-dark select-none bg-white dark:bg-zinc-900 border-outline dark:border-zinc-800 hover:border-outlineHover hover:dark:border-outlineHover-dark border outline-none w-fit hover:bg-emerald-600 hover:text-white dark:hover:bg-emerald-800 dark:hover:text-white">
+                      <button onClick={() => router.push(`/login${pathname !== '/' ? `?${new URLSearchParams({redirect:pathname}).toString()}` : ''}`)} className="shadow-button flex items-center gap-1.5 rounded-md px-3 py-1.5 text-start text-sm font-medium text-black dark:text-white active:bg-washed hover:dark:bg-washed-dark/50 active:dark:bg-washed-dark select-none bg-white dark:bg-zinc-900 border-outline dark:border-zinc-800 hover:border-outlineHover hover:dark:border-outlineHover-dark border outline-none w-fit hover:bg-primary-500 hover:text-white dark:hover:bg-primary-800 dark:hover:text-white">
                         Sign in
                       </button>
                     )}
@@ -107,7 +112,7 @@ export default function Header() {
                 <ThemeToggle />
                 {/* <div className="space-y-3 w-fit">
                   <div className="relative text-sm">
-                    <button onClick={() => router.push(`/login${pathname !== '/' ? `?${new URLSearchParams({redirect:pathname}).toString()}` : ''}`)} className="shadow-button flex items-center gap-1.5 rounded-md px-3 py-1.5 text-start text-sm font-medium text-black dark:text-white active:bg-washed hover:dark:bg-washed-dark/50 active:dark:bg-washed-dark select-none bg-white dark:bg-zinc-900 border-outline dark:border-washed-dark hover:border-outlineHover hover:dark:border-outlineHover-dark border outline-none w-fit hover:bg-emerald-600 hover:text-white dark:hover:bg-emerald-600 dark:hover:text-white">
+                    <button onClick={() => router.push(`/login${pathname !== '/' ? `?${new URLSearchParams({redirect:pathname}).toString()}` : ''}`)} className="shadow-button flex items-center gap-1.5 rounded-md px-3 py-1.5 text-start text-sm font-medium text-black dark:text-white active:bg-washed hover:dark:bg-washed-dark/50 active:dark:bg-washed-dark select-none bg-white dark:bg-zinc-900 border-outline dark:border-washed-dark hover:border-outlineHover hover:dark:border-outlineHover-dark border outline-none w-fit hover:bg-primary-500 hover:text-white dark:hover:bg-primary-500 dark:hover:text-white">
                       Sign in
                     </button>
                   </div>
@@ -151,7 +156,7 @@ export default function Header() {
                     <Link
                       href={`/login${pathname !== '/' ? `?${new URLSearchParams({redirect:pathname}).toString()}` : ''}`}
                       onClick={handleClick}
-                      className="text-emerald-500 hover:bg-gray-50 dark:hover:bg-zinc-800 dark:border-zinc-800 flex items-center gap-2 rounded-none px-2 py-2 text-sm font-semibold transition hover:cursor-pointer md:rounded-md md:py-[6px]"
+                      className="text-primary-500 hover:bg-gray-50 dark:hover:bg-zinc-800 dark:border-zinc-800 flex items-center gap-2 rounded-none px-2 py-2 text-sm font-semibold transition hover:cursor-pointer md:rounded-md md:py-[6px]"
                     >
                       Sign in
                     </Link>

@@ -176,7 +176,7 @@ const DatasetsPage = () => {
               <SelectDynamic name="Kategori" pathUrl={API_PATH().catalog.getAll} callback={callbackCategory} fieldPath="category"/>
 
               {(isLoggedin && access?.privillages?.add) && (
-                <button onClick={() => router.push("/datasets/add")} className="text-white bg-emerald-600 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-[25rem] px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">Tambah Dataset</button>
+                <button onClick={() => router.push("/datasets/add")} className="text-gray-800 bg-primary-500 hover:bg-primary-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm w-[25rem] px-5 py-2.5 text-center dark:bg-primary-500 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Tambah Dataset</button>
               )}
             </div>
           </div>
@@ -185,7 +185,7 @@ const DatasetsPage = () => {
             <h4 className="font-semibold text-base">
               {Intl.NumberFormat().format(pagination.count)}
             </h4>
-            <h4 className="font-medium text-base opacity-50 hover:opacity-100 hover:text-emerald-600">
+            <h4 className="font-medium text-base opacity-50 hover:opacity-100 hover:text-primary-500">
               Dataset ditemukan
             </h4>
           </div>
@@ -206,7 +206,7 @@ const DatasetsPage = () => {
           
           {queryDataset.isError && (
             <div className='px-6 py-4 text-center font-semibold text-gray-500'>
-              <div className='flex justify-center w-full text-emerald-500'>
+              <div className='flex justify-center w-full text-primary-500'>
                 <NoResult />
               </div>
               <span>Maaf, data tidak ditemukan</span>

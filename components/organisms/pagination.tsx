@@ -67,7 +67,7 @@ const Pagination = ({
             <a
               onClick={() => onPageChange(page)}
               className={`block size-8 min-w-8 w-auto rounded-sm text-center cursor-pointer leading-8 ${
-                currentPage === page ? 'border-emerald-600 bg-emerald-600 text-white' : 'hover:bg-emerald-600/50'
+                currentPage === page ? 'border-primary-500 bg-primary-500 text-gray-800' : 'hover:bg-primary-500/50'
               }`}
             >
               {page}

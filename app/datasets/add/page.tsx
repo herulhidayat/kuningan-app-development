@@ -91,7 +91,7 @@ function FormDataset() {
 								<div className="mt-8 flex flex-col gap-5">
 									<SuccessMessage />
 									<div className="flex justify-center">
-										<button onClick={() => router.push('/datasets')} className="text-white bg-emerald-600 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">Finish</button>
+										<button onClick={() => router.push('/datasets')} className="text-gray-800 bg-primary-500 hover:bg-primary-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-primary-500 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Finish</button>
 									</div>
 								</div>
 							</>
