@@ -19,10 +19,10 @@ export default function AdministratorLayout({
             <div className="col-span-3">
               <div className="flex flex-col gap-3">
                 {access?.find((item: any) => item?.id === "user-management")?.privillages?.view && 
-                  <Link className={`${pathName === "/administrator/user-management" ? "text-emerald-600 bg-emerald-50 rounded-e-lg border-s-4 border-emerald-500 dark:bg-emerald-900 dark:text-emerald-400" : ""} px-4 py-2`} href="/administrator/user-management">User Management</Link>
+                  <Link className={`${pathName === "/administrator/user-management" ? "text-primary-500 bg-primary-50 rounded-e-lg border-s-4 border-primary-500 dark:bg-primary-950 dark:text-primary-400" : ""} px-4 py-2`} href="/administrator/user-management">User Management</Link>
                 }
                 {access?.find((item: any) => item?.id === "role")?.privillages?.view &&
-                  <Link className={`${pathName === "/administrator/role" ? "text-emerald-600 bg-emerald-50 rounded-e-lg border-s-4 border-emerald-500 dark:bg-emerald-900 dark:text-emerald-400" : ""} px-4 py-2`} href="/administrator/role">Role</Link>
+                  <Link className={`${pathName === "/administrator/role" ? "text-primary-500 bg-primary-50 rounded-e-lg border-s-4 border-primary-500 dark:bg-primary-950 dark:text-primary-400" : ""} px-4 py-2`} href="/administrator/role">Role</Link>
                 }
               </div>
             </div>

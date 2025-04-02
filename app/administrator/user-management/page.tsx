@@ -174,7 +174,7 @@ function UserManagement() {
                 <div className="flex w-full justify-between">
                     <SearchBar callbackSearch={handleSearch} />
                     {access?.privillages?.add &&
-                        <button className="text-white bg-emerald-600 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-fit px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800" onClick={() => setModal((prev: any) => ({ ...prev, show: true, title: "Tambah Pengguna" }))}>Tambah Pengguna</button>
+                        <button className="text-gray-800 bg-primary-500 hover:bg-primary-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm w-fit px-5 py-2.5 text-center dark:bg-primary-500 dark:hover:bg-primary-700 dark:focus:ring-primary-800" onClick={() => setModal((prev: any) => ({ ...prev, show: true, title: "Tambah Pengguna" }))}>Tambah Pengguna</button>
                     }
                 </div>
                 <div className="w-full flex flex-col gap-3">

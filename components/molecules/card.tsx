@@ -30,7 +30,7 @@ const Card = ({ dataSet, isSkeleton, handleDelete }: { dataSet?: Dataset; isSkel
 
   return (
     <>
-      {/* <div className="flex flex-col py-2 px-4 my-2 h-[28rem] md:h-[15rem] gap-10 md:gap-2 rounded-md transition-colors justify-between text-[16px] border-outline hover:border-emerald-600 hover:bg-emerald-100/10 dark:hover:bg-washed-dark/50 dark:border-zinc-800 dark:hover:border-outlineHover-dark border">
+      {/* <div className="flex flex-col py-2 px-4 my-2 h-[28rem] md:h-[15rem] gap-10 md:gap-2 rounded-md transition-colors justify-between text-[16px] border-outline hover:border-primary-500 hover:bg-primary-100/10 dark:hover:bg-washed-dark/50 dark:border-zinc-800 dark:hover:border-outlineHover-dark border">
         <div className="grid grid-cols-4">
           <div className="col-span-4 md:col-span-3 md:flex md:flex-col md:gap-4">
             <h4 className="font-bold text-[1.25em] hover:cursor-pointer hover:underline">
@@ -50,7 +50,7 @@ const Card = ({ dataSet, isSkeleton, handleDelete }: { dataSet?: Dataset; isSkel
           {!isSkeleton ? (
             <>
               <span className="">{dataSet?.author}</span>
-              <span className="bg-emerald-600 rounded-xl px-2 py-1.5 text-white">
+              <span className="bg-primary-500 rounded-xl px-2 py-1.5 text-white">
                 {dataSet?.data_source}
               </span>
             </>
@@ -64,7 +64,7 @@ const Card = ({ dataSet, isSkeleton, handleDelete }: { dataSet?: Dataset; isSkel
           <CardInformation className="md:hidden" isSkeleton={isSkeleton} />
         </div>
       </div> */}
-      <div onMouseEnter={() => setShowAction(true)} onMouseLeave={() => setShowAction(false)} className='border border-gray-200 dark:border-zinc-800 rounded-xl hover:border-emerald-500 hover:shadow-sm hover:shadow-emerald-500/10 transition delay-100 ease-in py-5 px-4 flex justify-between'>
+      <div onMouseEnter={() => setShowAction(true)} onMouseLeave={() => setShowAction(false)} className='border border-gray-200 dark:border-zinc-800 rounded-xl hover:border-primary-500 hover:shadow-sm hover:shadow-primary-500/10 transition delay-100 ease-in py-5 px-4 flex justify-between'>
         <div className='flex flex-col gap-2 flex-grow cursor-pointer' onClick={() => router.push(`/datasets/${dataSet?._id}`)}>
           <h4 className='text-lg font-bold text-gray-900 dark:text-gray-100 max-lines-1' title={dataSet?.data_name}>{dataSet?.data_name}</h4>
           <p className='text-sm text-gray-700 dark:text-gray-300 max-lines-1' title={dataSet?.data_description}>{dataSet?.data_description}</p>

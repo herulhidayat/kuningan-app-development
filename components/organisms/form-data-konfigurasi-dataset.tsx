@@ -37,9 +37,9 @@ export default function FormDataKonfigurasiDataset({ data, callbackNext, callbac
             <div className="flex items-center justify-center">
                 <div className="w-1/2 max-md:w-full flex flex-col gap-8">
                     <div className="flex gap-5 w-full mt-8">
-                        <div onClick={() => setType("table")} className={`${type === "table" ? "border-emerald-500 bg-emerald-50 dark:bg-emerald-900" : "border-gray-300 dark:border-gray-800"} cursor-pointer border hover:border-emerald-600 transition duration-300 ease-in-out rounded-xl p-4 w-full`}>
+                        <div onClick={() => setType("table")} className={`${type === "table" ? "border-primary-500 bg-primary-50 dark:bg-primary-950" : "border-gray-300 dark:border-gray-800"} cursor-pointer border hover:border-primary-500 transition duration-300 ease-in-out rounded-xl p-4 w-full`}>
                             <div className="flex gap-4">
-                                <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                                <div className="w-10 h-10 rounded-full bg-primary-100 text-primary-500 flex items-center justify-center">
                                     <ScrollIcon />
                                 </div>
                                 <div className="flex flex-col gap-1">
@@ -48,9 +48,9 @@ export default function FormDataKonfigurasiDataset({ data, callbackNext, callbac
                                 </div>
                             </div>
                         </div>
-                        <div onClick={() => setType("file")} className={`${type === "file" ? "border-emerald-500 bg-emerald-50 dark:bg-emerald-900" : "border-gray-300 dark:border-gray-800"} cursor-pointer border hover:border-emerald-600 transition duration-300 ease-in-out rounded-xl p-4 w-full`}>
+                        <div onClick={() => setType("file")} className={`${type === "file" ? "border-primary-500 bg-primary-50 dark:bg-primary-950" : "border-gray-300 dark:border-gray-800"} cursor-pointer border hover:border-primary-500 transition duration-300 ease-in-out rounded-xl p-4 w-full`}>
                             <div className="flex flex-row gap-4">
-                                <div className="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                                <div className="w-10 h-10 rounded-full bg-primary-100 text-primary-500 flex items-center justify-center">
                                     <DocumentIcon />
                                 </div>
                                 <div className="flex flex-col gap-1">
@@ -68,7 +68,7 @@ export default function FormDataKonfigurasiDataset({ data, callbackNext, callbac
                     )}
                     <div className="flex justify-between">
                         <button onClick={() => callbackBack()} className="text-white bg-gray-500 hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-200 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-gray-500 dark:hover:bg-gray-600 dark:focus:ring-gray-700">Back</button>
-                        <button onClick={handleCallbackData} className="text-white bg-emerald-600 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-emerald-800">Next</button>
+                        <button onClick={handleCallbackData} className="text-gray-800 bg-primary-500 hover:bg-primary-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-primary-500 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Next</button>
                     </div>
                 </div>
             </div>

@@ -193,7 +193,7 @@ const DatasetDetailPage = () => {
             <h4 className="font-bold text-xl mt-4">Download Dataset</h4>
 
             <div className="flex rounded-lg py-5 gap-4">
-              <button className="border-gray-200 border hover:border-emerald-500 hover:bg-emerald-50 bg-gray-50 dark:border-zinc-700 dark:bg-zinc-800 w-[50%] px-4 py-2 gap-4 rounded-md flex items-center justify-center">
+              <button className="border-gray-200 border hover:border-primary-500 hover:bg-primary-50 bg-gray-50 dark:border-zinc-700 dark:bg-zinc-800 w-[50%] px-4 py-2 gap-4 rounded-md flex items-center justify-center">
                 <DocumentArrowDownIcon className="h-5 inline-block mr-2" />
                 <div className="flex flex-col items-start">
                   <span>Full Dataset (CSV)</span>
@@ -202,7 +202,7 @@ const DatasetDetailPage = () => {
                   </span>
                 </div>
               </button>
-              <button className="border-gray-200 border hover:border-emerald-500 hover:bg-emerald-50 bg-gray-50 dark:border-zinc-700 dark:bg-zinc-800 w-[50%] px-4 py-2 gap-4 rounded-md flex items-center justify-center">
+              <button className="border-gray-200 border hover:border-primary-500 hover:bg-primary-50 bg-gray-50 dark:border-zinc-700 dark:bg-zinc-800 w-[50%] px-4 py-2 gap-4 rounded-md flex items-center justify-center">
                 <CodeBracketIcon className="h-5 inline-block mr-2" />
                 <div className="flex flex-col items-start text-base">
                   <span>Full Dataset (JSON)</span>

@@ -106,7 +106,7 @@ const ReactTable: FC<Props> = ({
             : noData
               ? <tr>
                   <td colSpan={columns?.length} className='px-6 py-4 text-center font-semibold text-gray-500'>
-                    <div className='flex justify-center w-full text-emerald-500'>
+                    <div className='flex justify-center w-full text-primary-500'>
                       {/* <img src="/img/no-result.svg" alt="" style={{ width: '10rem' }} /> */}
                       <NoResult />
                     </div>

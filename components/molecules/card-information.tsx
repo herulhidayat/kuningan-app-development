@@ -10,7 +10,7 @@ const CardInformation = ({ className, isSkeleton }: { className?: string; isSkel
             <CircleStackIcon className="h-5 mr-1" />
             Prioritas 2024
           </button>
-          <button className="bg-emerald-600 text-white px-2 py-1.5 rounded-md mt-2 flex">Terbuka</button>
+          <button className="bg-primary-500 text-white px-2 py-1.5 rounded-md mt-2 flex">Terbuka</button>
         </>
       ) : (
         <>
