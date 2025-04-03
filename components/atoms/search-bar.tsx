@@ -16,7 +16,7 @@ export default function SearchBar({placeholder = "Cari...", callbackSearch} : {p
             type="text"
             id="Search"
             placeholder={placeholder}
-            className="w-full rounded-md border-gray-200 ps-3 py-2.5 pe-10 shadow-xs sm:text-sm dark:bg-gray-800 dark:border-gray-700"
+            className="w-full rounded-md border-gray-200 ps-3 py-2.5 pe-10 shadow-xs sm:text-sm dark:bg-gray-800 dark:border-gray-700 focus:ring-primary-500 focus:border-primary-500"
             onChange={(e: any) => debounceSearch(e.target.value)}
             />
 

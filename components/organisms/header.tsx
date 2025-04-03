@@ -10,6 +10,9 @@ import { Dropdown, DropdownItem } from 'flowbite-react'
 import logout from '@/helpers/logout.helper'
 import Cookies from 'js-cookie'
 import Image from 'next/image'
+import { Poppins } from 'next/font/google'
+
+const poppins = Poppins({ subsets: ['latin'], weight: ['400', '500', '600', '700', '800', '900'] })
 
 export default function Header() {
   const [visible, setVisible] = useState(false)
@@ -55,13 +58,16 @@ export default function Header() {
     <div className="bg-white dark:bg-zinc-900 text-black dark:text-white fixed left-0 top-0 z-30 w-full border-b border-b-gray-200 dark:border-b-zinc-800">
       <div className="flex h-full w-full justify-center">
         <div className="md:px-4.5 h-full w-full max-w-screen-2xl divide-y px-3 lg:px-6 flex items-center gap-4 py-[11px]">
-          <div className="flex w-full items-center gap-4">
+          <div className="flex w-full items-center gap-8">
             <Link href="/">
               <div className="flex cursor-pointer gap-2">
-                <div className="flex w-6 items-center justify-center text-primary-600">
+                <div className="flex w-8 items-center justify-center text-primary-600">
                   <CursorArrowRaysIcon />
                 </div>
-                <h4 className="font-bold">data.kuningankab.go.id</h4>
+                <div className='flex flex-col gap-0 justify-center'>
+                  <h4 className={`${poppins.className} text-lg/5 font-semibold`}>Bidak</h4>
+                  <h5 className={`${poppins.className} text-xs/3 font-normal text-gray-500 text-nowrap`}>Big Data Kuningan</h5>
+                </div>
               </div>
             </Link>
             <div className="flex w-full items-center justify-end lg:justify-between">

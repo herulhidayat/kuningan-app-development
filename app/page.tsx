@@ -1,3 +1,4 @@
+import PostCatalog from "@/components/organisms/post-catalog"
 import { Poppins, Seaweed_Script } from "next/font/google"
 import Image from "next/image"
 
@@ -29,6 +30,9 @@ export default function HundredDaysOfWorks() {
                         </div>
                     </div>
                 </div>
+            </section>
+            <section className="py-8">
+                <PostCatalog />
             </section>
         </>
     )

@@ -13,7 +13,7 @@ const jost = Jost({
 });
 
 export const metadata: Metadata = {
-  title: "data.kuningankab.go.id",
+  title: "bidak",
   description: "Kab. Kuningan Website",
 };
 
