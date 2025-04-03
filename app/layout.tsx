@@ -13,7 +13,7 @@ const jost = Jost({
 });
 
 export const metadata: Metadata = {
-  title: "bidak",
+  title: "Bidak | Big Data Kuningan",
   description: "Kab. Kuningan Website",
 };
 
