@@ -31,7 +31,7 @@ export default function HundredDaysOfWorks() {
                     </div>
                 </div>
             </section>
-            <section className="py-8">
+            <section className="py-10 w-full flex justify-center items-center">
                 <PostCatalog />
             </section>
         </>
