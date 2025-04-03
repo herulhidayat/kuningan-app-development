@@ -35,7 +35,7 @@ export default function PostCatalog() {
     return(
         <>
             <div className="flex flex-col items-center gap-6 md:px-4.5 w-full max-w-screen-2xl px-3 lg:px-6">
-                <h1 className="font-bold text-xl text-center">Program 100 hari kerja Bupati dan Wakil Bupati Kabupaten Kuningan</h1>
+                <h1 className={`${poppins.className} font-bold text-xl text-center`}>Program 100 hari kerja Bupati dan Wakil Bupati Kabupaten Kuningan</h1>
                 <SearchBarRounded placeholder="Cari..." callbackSearch={(v) => console.log(v)} className="md:w-96" />
                 {(isLoggedin && access?.privillages?.add) && (
                     <button onClick={() => router.push("/seratus-hari-kerja/add")} className="text-gray-800 bg-primary-500 hover:bg-primary-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm w-[10rem] px-5 py-2.5 text-center dark:bg-primary-500 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Tambah Postingan</button>
