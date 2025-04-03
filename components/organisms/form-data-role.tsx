@@ -35,6 +35,15 @@ export default function FormDataRole({ onClose, modalProps, refetch }: IFormData
       }
     },
     {
+      name: '100 Hari Kerja',
+      id: 'seratus-hari-kerja',
+      privillages: {
+        add: false,
+        update: false,
+        delete: false
+      }
+    },
+    {
       name: 'User Management',
       id: 'user-management',
       privillages: {
