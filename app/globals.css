@@ -55,3 +55,10 @@
     -webkit-line-clamp: 5;
     max-height: 5 * 1.5em;
   }
+
+  .ProseMirror:focus {
+    outline: none;
+  }
+  .ProseMirror {
+    min-height: 100%;
+  }
