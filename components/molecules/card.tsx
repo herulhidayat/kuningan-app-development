@@ -1,5 +1,3 @@
-import Skeleton from 'react-loading-skeleton'
-import CardInformation from './card-information'
 import { Dataset } from '@/app/datasets/page'
 import moment from 'moment';
 import { useState } from 'react';
@@ -8,8 +6,6 @@ import { Dropdown, DropdownItem } from 'flowbite-react';
 import EditIcon from '../ui/icons/EditIcon';
 import TrashIcon from '../ui/icons/TrashIcon';
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "flowbite-react";
-import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import Image from 'next/image';
@@ -71,7 +67,7 @@ const Card = ({ dataSet, isSkeleton, handleDelete }: { dataSet?: Dataset; isSkel
           <p className='text-sm font-medium text-gray-500 dark:text-gray-400'>{dataSet?.data_source} • <span className='font-normal'>{moment(dataSet?.createdAt).format('DD MMMM YYYY, HH:mm')}</span></p>
         </div>
         <div>
-          {showAction && isLoggedin && (access?.privillages?.edit || access?.privillages?.delete) && (
+          {showAction && isLoggedin && (access?.privillages?.update || access?.privillages?.delete) && (
             <Dropdown 
               label="" 
               dismissOnClick={false} 

@@ -9,23 +9,25 @@ import TextEditor from "../molecules/text-editor";
 
 interface FormDataPostProps {
   data?: any
+  callbackData?: (data: any) => void
 }
 
 export default function FormDataPost({
   data,
+  callbackData
 }: FormDataPostProps) {
   const router = useRouter()
   const schema = yup.object().shape({
     author: yup.string().required('Author is required'),
-    title: yup.string().required('Title is required'),
-    image_path: yup.string(),
+    judul: yup.string().required('Judul is required'),
+    image_cover: yup.string(),
     content: yup.string(),
   });
 
   const [formModel] = useState<any>({
     author: "",
-    title: "",
-    image_path: "",
+    judul: "",
+    image_cover: "",
     content: "",
   });
 
@@ -40,8 +42,18 @@ export default function FormDataPost({
     defaultValues: formModel
   });
 
-  const handleSubmitForm = (data: any) => {
-    console.log(data)
+  const handleSubmitForm = (dataForm: any) => {
+    if (callbackData && dataForm) {
+      if(data) {
+        const newData = {
+          ...data,
+          ...dataForm
+        }
+        callbackData(newData)
+      } else {
+        callbackData(dataForm)
+      }
+    }
   }
 
   useEffect(() => {
@@ -69,12 +81,12 @@ export default function FormDataPost({
                 <input {...register('author')} type="" id="author" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Masukkan author" required />
               </div>
               <div className="col-span-2">
-                <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
-                <input {...register('author')} type="" id="author" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Masukkan author" required />
+                <label htmlFor="judul" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Judul</label>
+                <input {...register('judul')} type="" id="judul" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Masukkan author" required />
               </div>
               <div className="col-span-2">
-                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Content</label>
-                <TextEditor callbackContent={callbackTextEditor} />
+                <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Konten Postingan</label>
+                <TextEditor content={data?.content} callbackContent={callbackTextEditor} />
               </div>
             </div>
             <div className="flex justify-between">
