@@ -33,5 +33,12 @@ export const API_PATH = () => {
         delete: "v1/catalog/delete",
         getAllSource: "v1/catalog/get-all-source",
       },
+      blog: {
+        getAll: "v1/blog/get-all",
+        getOne: "v1/blog/get-one",
+        add: "v1/blog/add",
+        update: "v1/blog/update",
+        delete: "v1/blog/delete",
+      },
     }
 }
