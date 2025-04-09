@@ -104,11 +104,11 @@ export default function Header() {
                           {(access?.find((item: any) => item?.id === "user-management")?.privillages?.view || access?.find((item: any) => item?.id === "role")?.privillages?.view) &&
                             <DropdownItem className='flex items-center gap-2' onClick={() => {router.push(access?.find((item: any) => item?.id === "user-management")?.privillages?.view ? '/administrator/user-management' : access?.find((item: any) => item?.id === "role")?.privillages?.view ? '/administrator/role' : '')}}>Administrator</DropdownItem>
                           }
-                          <DropdownItem className='flex items-center gap-2' onClick={() => {logout();router.push('/login')}}>Logout</DropdownItem>
+                          <DropdownItem className='flex items-center gap-2 text-red-500' onClick={() => {logout();router.push('/login')}}>Keluar</DropdownItem>
                       </Dropdown>
                     ) : (
                       <button onClick={() => router.push(`/login${pathname !== '/' ? `?${new URLSearchParams({redirect:pathname}).toString()}` : ''}`)} className="shadow-button flex items-center gap-1.5 rounded-md px-3 py-1.5 text-start text-sm font-medium text-black dark:text-white active:bg-washed hover:dark:bg-washed-dark/50 active:dark:bg-washed-dark select-none bg-white dark:bg-zinc-900 border-outline dark:border-zinc-800 hover:border-outlineHover hover:dark:border-outlineHover-dark border outline-none w-fit hover:bg-primary-500 hover:text-white dark:hover:bg-primary-800 dark:hover:text-white">
-                        Sign in
+                        Masuk
                       </button>
                     )}
                   </div>
@@ -155,7 +155,7 @@ export default function Header() {
                         onClick={() => {handleClick();logout();router.push('/login')}}
                         className="text-red-500 hover:bg-gray-50 dark:hover:bg-zinc-800 dark:border-zinc-800 flex items-center gap-2 rounded-none px-2 py-2 text-sm font-semibold transition hover:cursor-pointer md:rounded-md md:py-[6px]"
                       >
-                        Logout
+                        Keluar
                       </Link>
                     </>
                   ) : (
@@ -164,7 +164,7 @@ export default function Header() {
                       onClick={handleClick}
                       className="text-primary-500 hover:bg-gray-50 dark:hover:bg-zinc-800 dark:border-zinc-800 flex items-center gap-2 rounded-none px-2 py-2 text-sm font-semibold transition hover:cursor-pointer md:rounded-md md:py-[6px]"
                     >
-                      Sign in
+                      Masuk
                     </Link>
                   )}
                 </div>
