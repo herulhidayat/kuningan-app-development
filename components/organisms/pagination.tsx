@@ -37,11 +37,11 @@ const Pagination = ({
 
   const startIndex = Math.floor((currentPage - 1) / itemsPerPage) * itemsPerPage
 
-  const visiblePages = [
+  const visiblePages = Array.from(new Set([
     pageCount.length === 1 ? null : currentPage === pageCount.length ? 1 : null,
     ...pageCount.slice(startIndex, startIndex + itemsPerPage),
     pageCount.length === 1 ? null : currentPage !== pageCount.length ? pageCount.length : null,
-  ].filter((page) => page !== null)
+  ])).filter((page) => page !== null)
 
   return (
     <>
