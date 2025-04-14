@@ -24,8 +24,8 @@ function PostCatalog() {
 
   const [pagination, setPagination] = useState({
     currentPage: 1,
-    itemsPerPage: 9,
-    count: 9,
+    itemsPerPage: 21,
+    count: 21,
   });
 
   const [params, setParams] = useState<any>({
