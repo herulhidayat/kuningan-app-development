@@ -45,11 +45,11 @@ export default function CardBlog({ item, isLoggedin, access, router, callbackDel
       <div className="flex flex-row gap-5 relative cursor-pointer" onMouseEnter={() => setShowAction(true)} onMouseLeave={() => setShowAction(false)}>
         <Image src={item?.image_cover || "/img/placeholder-img.svg"} alt="post-1" width={150} height={150} className="object-cover rounded-lg w-[150px] h-[150px]" />
         <div className="flex flex-col justify-center items-start w-full" onClick={() => router.push(`/seratus-hari-kerja/${item?._id}`)}>
-          {moment().diff(moment(item?.createdAt), 'days') < 7 &&
+          {/* {moment().diff(moment(item?.createdAt), 'days') < 7 &&
             <p className="text-sm font-medium text-primary-500">New</p>
-          }
-          <h3 className="text-lg font-semibold max-lines-2">{item?.judul}</h3>
-          <p className="text-sm font-medium text-gray-700">{item?.author} • {moment(item?.createdAt).format("DD MMMM YYYY")}</p>
+          } */}
+          <h3 className="text-lg font-semibold max-lines-2" title={item?.judul}>{item?.judul}</h3>
+          <p className="text-sm font-medium text-gray-700 max-lines-1" title={`${item?.author} • ${moment(item?.createdAt).format("DD MMMM YYYY")}`}>{item?.author} • {moment(item?.createdAt).format("DD MMMM YYYY")}</p>
           <p className="text-sm font-normal text-gray-500 max-lines-2">{item?.content?.replace(/<[^>]*>/g, '')}</p>
           <div className="flex gap-6 w-full items-center mt-2">
             <div className="flex-grow">
