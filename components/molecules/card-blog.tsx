@@ -1,6 +1,6 @@
 "use client";
 
-import { Dropdown, DropdownItem, Modal, ModalBody, ModalFooter, ModalHeader } from "flowbite-react";
+import { Dropdown, DropdownItem, Modal, ModalBody, ModalFooter, ModalHeader, Progress } from "flowbite-react";
 import moment from "moment";
 import Image from "next/image";
 import MoreIcon from "../ui/icons/MoreIcon";
@@ -25,17 +25,38 @@ export default function CardBlog({ item, isLoggedin, access, router, callbackDel
     data: {}
   });
 
+  const progressBarTheme = {
+    "base": "w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700",
+    "label": "mb-1 flex justify-between font-medium dark:text-white",
+    "bar": "space-x-2 rounded-full text-center font-medium leading-none text-primary-300 dark:text-primary-100",
+    "color": {
+      "default": "bg-primary-600",
+    },
+    "size": {
+      "sm": "h-1.5",
+      "md": "h-2.5",
+      "lg": "h-4",
+      "xl": "h-6"
+    }
+  } 
+
   return(
     <>
       <div className="flex flex-row gap-5 relative cursor-pointer" onMouseEnter={() => setShowAction(true)} onMouseLeave={() => setShowAction(false)}>
         <Image src={item?.image_cover || "/img/placeholder-img.svg"} alt="post-1" width={150} height={150} className="object-cover rounded-lg w-[150px] h-[150px]" />
-        <div className="flex flex-col justify-center items-start" onClick={() => router.push(`/seratus-hari-kerja/${item?._id}`)}>
+        <div className="flex flex-col justify-center items-start w-full" onClick={() => router.push(`/seratus-hari-kerja/${item?._id}`)}>
           {moment().diff(moment(item?.createdAt), 'days') < 7 &&
             <p className="text-sm font-medium text-primary-500">New</p>
           }
           <h3 className="text-lg font-semibold max-lines-2">{item?.judul}</h3>
           <p className="text-sm font-medium text-gray-700">{item?.author} • {moment(item?.createdAt).format("DD MMMM YYYY")}</p>
           <p className="text-sm font-normal text-gray-500 max-lines-2">{item?.content?.replace(/<[^>]*>/g, '')}</p>
+          <div className="flex gap-6 w-full items-center mt-2">
+            <div className="flex-grow">
+              <Progress progress={item?.progress || 0} theme={progressBarTheme} color="default" />
+            </div>
+            <p className="text-sm font-medium text-gray-500">{item?.progress || 0}%</p>
+          </div>
         </div>
         <div className="absolute top-0 right-0">
           {showAction && isLoggedin && (access?.privillages?.update || access?.privillages?.delete) && (

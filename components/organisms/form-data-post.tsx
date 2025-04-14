@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import TextEditor from "../molecules/text-editor";
+import { RangeSlider } from "flowbite-react";
 
 interface FormDataPostProps {
   data?: any
@@ -18,9 +19,10 @@ export default function FormDataPost({
 }: FormDataPostProps) {
   const router = useRouter()
   const schema = yup.object().shape({
-    author: yup.string().required('Author is required'),
+    author: yup.string(),
     judul: yup.string().required('Judul is required'),
     image_cover: yup.string(),
+    progress: yup.number(),
     content: yup.string(),
   });
 
@@ -28,6 +30,7 @@ export default function FormDataPost({
     author: "",
     judul: "",
     image_cover: "",
+    progress: 0,
     content: "",
   });
 
@@ -36,15 +39,18 @@ export default function FormDataPost({
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: formModel
   });
 
+  const watchProgress = watch('progress');
+
   const handleSubmitForm = (dataForm: any) => {
     if (callbackData && dataForm) {
-      if(data) {
+      if (data) {
         const newData = {
           ...data,
           ...dataForm
@@ -78,11 +84,19 @@ export default function FormDataPost({
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div className="col-span-2">
                 <label htmlFor="author" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Author</label>
-                <input {...register('author')} type="" id="author" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Masukkan author" required />
+                <input {...register('author')} type="" id="author" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Masukkan author" />
               </div>
               <div className="col-span-2">
                 <label htmlFor="judul" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Judul</label>
                 <input {...register('judul')} type="" id="judul" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Masukkan author" required />
+              </div>
+              <div className="col-span-2">
+                <label htmlFor="judul" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Progres</label>
+                <div className="w-full flex gap-4">
+                  <RangeSlider {...register('progress')} className="flex-grow" id="lg-range" sizing="lg" defaultValue={watchProgress} max={100} min={0} step={10} />
+                  <p className="font-medium text-gray-700">{watchProgress}%</p>
+                </div>
+                <p className="text-xs text-gray-500">Geser slider untuk menentukan progres</p>
               </div>
               <div className="col-span-2">
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Konten Postingan</label>
