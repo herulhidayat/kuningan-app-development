@@ -61,13 +61,14 @@ export default function Header() {
           <div className="flex w-full items-center gap-8">
             <Link href="/">
               <div className="flex cursor-pointer gap-2">
-                <div className="flex w-8 items-center justify-center text-primary-600">
+                {/* <div className="flex w-8 items-center justify-center text-primary-600">
                   <CursorArrowRaysIcon />
                 </div>
                 <div className='flex flex-col gap-0 justify-center'>
                   <h4 className={`${poppins.className} text-lg/5 font-semibold`}>Bidak</h4>
                   <h5 className={`${poppins.className} text-xs/3 font-normal text-gray-500 text-nowrap`}>Big Data Kuningan</h5>
-                </div>
+                </div> */}
+                <Image src="/logo-bidak.png" alt="logo-bidak" width={80} height={80} />
               </div>
             </Link>
             <div className="flex w-full items-center justify-end lg:justify-between">
