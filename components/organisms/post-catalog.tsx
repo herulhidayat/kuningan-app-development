@@ -100,7 +100,7 @@ function PostCatalog() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-6 lg:gap-10 mt-6">
             {getAllBlog.isLoading && (
               Array.from({ length: 3 }).map((_, index) => (
-                <div key={index}>
+                <div key={index} className="w-full">
                   <Skeleton height={150} />
                 </div>
               ))

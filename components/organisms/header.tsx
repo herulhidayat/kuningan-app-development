@@ -106,7 +106,7 @@ export default function Header() {
                           }
                           <DropdownItem className='flex items-center gap-2 text-red-500' onClick={() => {logout();router.push('/login')}}>Keluar</DropdownItem>
                       </Dropdown>
-                    ) : (
+                    ) : !pathname.includes('/login') && (
                       <button onClick={() => router.push(`/login${pathname !== '/' ? `?${new URLSearchParams({redirect:pathname}).toString()}` : ''}`)} className="shadow-button flex items-center gap-1.5 rounded-md px-3 py-1.5 text-start text-sm font-medium text-black dark:text-white active:bg-washed hover:dark:bg-washed-dark/50 active:dark:bg-washed-dark select-none bg-white dark:bg-zinc-900 border-outline dark:border-zinc-800 hover:border-outlineHover hover:dark:border-outlineHover-dark border outline-none w-fit hover:bg-primary-500 hover:text-white dark:hover:bg-primary-800 dark:hover:text-white">
                         Masuk
                       </button>
@@ -158,7 +158,7 @@ export default function Header() {
                         Keluar
                       </Link>
                     </>
-                  ) : (
+                  ) : !pathname.includes('/login') && (
                     <Link
                       href={`/login${pathname !== '/' ? `?${new URLSearchParams({redirect:pathname}).toString()}` : ''}`}
                       onClick={handleClick}
