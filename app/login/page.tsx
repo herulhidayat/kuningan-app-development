@@ -13,6 +13,7 @@ import * as yup from "yup";
 import Cookies from "js-cookie";
 import { Poppins } from "next/font/google";
 import { CursorArrowRaysIcon, EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
+import Image from "next/image";
 
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '500', '600', '700', '800', '900'] })
@@ -73,13 +74,14 @@ function LoginPage() {
         <div className="border border-gray-300 dark:border-gray-800 rounded-xl p-8 w-[25rem] flex flex-col items-center gap-8">
           <div className="flex flex-col gap-2 justify-center items-center w-[15rem]">
             <div className="flex gap-2 mb-5">
-              <div className="flex w-8 items-center justify-center text-primary-600">
+              {/* <div className="flex w-8 items-center justify-center text-primary-600">
                 <CursorArrowRaysIcon />
               </div>
               <div className='flex flex-col gap-0 justify-center'>
                 <h4 className={`${poppins.className} text-lg/5 font-semibold`}>Bidak</h4>
                 <h5 className={`${poppins.className} text-xs/3 font-normal text-gray-500 text-nowrap`}>Big Data Kuningan</h5>
-              </div>
+              </div> */}
+              <Image src="/logo-bidak.png" alt="logo-bidak" width={120} height={120} />
             </div>
             <h1 className="text-2xl font-medium text-center">Masuk ke Akunmu</h1>
             <h3 className="text-center w-full text-gray-500">selamat datang kembali, silakan masukkan detail Anda</h3>
