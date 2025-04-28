@@ -13,6 +13,8 @@ import api from "@/services/api.service";
 import CardBlog from "../molecules/card-blog";
 import Skeleton from "react-loading-skeleton";
 import NoResult from "../ui/illustrations/NoResult";
+import { Modal, ModalBody, ModalHeader } from "flowbite-react";
+import WorksPage from "../pages/formpage-works";
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['700'] })
 const queryClient = new QueryClient();
@@ -33,6 +35,11 @@ function PostCatalog() {
     "orderBy": "createdAt",
     "filter": []
   })
+
+  const [modal, setModal] = useState<any>({
+    title: "",
+    show: false,
+  });
 
   const getAllBlog = useQuery({
     queryKey: ["blog", pagination.currentPage, params],
@@ -83,7 +90,7 @@ function PostCatalog() {
     return getAllBlog.data?.data?.map(
       (item: any, index: number) => {
         return (
-          <CardBlog key={index} item={item} isLoggedin={Boolean(isLoggedin)} access={access} router={router} callbackDelete={deleteBlog.mutate} />
+          <CardBlog key={index} item={item} isLoggedin={Boolean(isLoggedin)} access={access} router={router} callbackDelete={deleteBlog.mutate} refresh={getAllBlog.refetch}/>
         );
       }
     )
@@ -94,9 +101,12 @@ function PostCatalog() {
       <div className="flex flex-col items-center gap-6 md:px-4.5 w-full max-w-screen-2xl px-3 lg:px-6">
         <h1 className={`${poppins.className} font-bold text-xl text-center`}>Program 100 hari kerja Bupati dan Wakil Bupati Kabupaten Kuningan</h1>
         <SearchBarRounded placeholder="Cari..." callbackSearch={handleSearch} className="md:w-96" />
-        {(isLoggedin && access?.privillages?.add) && (
+        {/* {(isLoggedin && access?.privillages?.add) && (
           <button onClick={() => router.push("/seratus-hari-kerja/add")} className="text-gray-800 bg-primary-500 hover:bg-primary-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm w-[10rem] px-5 py-2.5 text-center dark:bg-primary-500 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Tambah Postingan</button>
-        )}
+        )} */}
+        {/* {(isLoggedin && access?.privillages?.add) && ( */}
+          <button onClick={() => setModal((prev: any) => ({ ...prev, show: true, title: "Tambah Program Kerja" }))} className="text-gray-800 bg-primary-500 hover:bg-primary-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm w-[13rem] px-5 py-2.5 text-center dark:bg-primary-500 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Tambah Program Kerja</button>
+        {/* )} */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-6 lg:gap-10 mt-6">
             {getAllBlog.isLoading && (
               Array.from({ length: 3 }).map((_, index) => (
@@ -126,6 +136,13 @@ function PostCatalog() {
           setPagination={setPagination}
         />
       </div>
+
+      <Modal show={modal.show} position="center" onClose={() => {setModal((prev: any) => ({ ...prev, show: false }));router.replace('/')}}>
+        <ModalHeader>{modal.title}</ModalHeader>
+        <ModalBody>
+          <WorksPage closeModal={() => setModal((prev: any) => ({ ...prev, show: false }))} refresh={() => getAllBlog.refetch}/>
+        </ModalBody>
+      </Modal>
     </>
   )
 }

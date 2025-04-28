@@ -1,13 +1,16 @@
 "use client";
 
 import FormDataPostHistory from "@/components/organisms/form-data-post-history";
+import FormDataPostHistoryV2 from "@/components/organisms/form-data-post-history-v2";
 import FormDataSubWorks from "@/components/organisms/form-data-sub-works";
 import Hero from "@/components/organisms/hero";
 import { API_PATH } from "@/services/_path.service";
 import api from "@/services/api.service";
+import { ArrowLeftIcon } from "@heroicons/react/16/solid";
 import { QueryClient, QueryClientProvider, useMutation, useQuery } from "@tanstack/react-query";
+import { parseInt } from "lodash";
 import moment from "moment";
-import { useParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 import Skeleton from "react-loading-skeleton";
 
@@ -15,6 +18,8 @@ const queryClient = new QueryClient();
 
 function ViewPost() {
     const params = useParams();
+    const router = useRouter()
+    const paramsUrl = useSearchParams();
     const getBlogContent = useQuery({
         queryKey: ["blog", "seratus-hari-kerja"],
         queryFn: async () => {
@@ -45,8 +50,8 @@ function ViewPost() {
     return (
         <>
 			<Hero
-                title={getBlogContent?.data?.judul}
-                description={`${getBlogContent?.data?.author} • ${moment(getBlogContent?.data?.created_at).format("DD MMMM YYYY")}`}
+                title={getBlogContent?.data?.detail_progress?.[parseInt(paramsUrl.get("index") || "0")]?.program_name}
+                description={`${getBlogContent?.data?.detail_progress?.[parseInt(paramsUrl.get("index") || "0")]?.description}`}
                 isWebTitle={false}
                 isLoading={getBlogContent?.isLoading}
             />
@@ -55,14 +60,11 @@ function ViewPost() {
 				<div className="md:px-4.5 dark:divide-washed-dark h-full w-full max-w-screen-2xl px-3 lg:px-6">
                     <div className="flex items-center justify-center py-10">
                         <div className="w-9/12 max-md:w-full flex flex-col gap-8">
-                            <div
-                            className="prose max-w-none"
-                            dangerouslySetInnerHTML={{ __html: getBlogContent?.data?.content }}
-                            />
+                            <div className="text-primary-600 flex gap-2 items-center font-medium cursor-pointer" onClick={() => router.push(`/seratus-hari-kerja/${params.id}`)}><ArrowLeftIcon className="h-4" /> Kembali</div>
                             {getBlogContent?.isLoading ? (
                                 <Skeleton height={150}/>
                             ) : (
-                                <FormDataSubWorks data={getBlogContent?.data} callbackData={callbackPostHistory}/>
+                                <FormDataPostHistoryV2 data={getBlogContent?.data} callbackData={callbackPostHistory} />
                             )}
                         </div>
                     </div>

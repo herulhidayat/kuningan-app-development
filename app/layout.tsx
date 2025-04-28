@@ -15,6 +15,9 @@ const jost = Jost({
 export const metadata: Metadata = {
   title: "Bidak | Big Data Kuningan",
   description: "Kab. Kuningan Website",
+  icons: {
+    icon: "/logo.png",
+  }
 };
 
 export default function RootLayout({
