@@ -7,6 +7,7 @@ import MoreIcon from "../ui/icons/MoreIcon";
 import { useState } from "react";
 import EditIcon from "../ui/icons/EditIcon";
 import TrashIcon from "../ui/icons/TrashIcon";
+import WorksPage from "../pages/formpage-works";
 
 interface CardBlogProps {
   item: any;
@@ -14,8 +15,9 @@ interface CardBlogProps {
   access: any;
   router: any;
   callbackDelete: (id: any) => void;
+  refresh: () => void
 }
-export default function CardBlog({ item, isLoggedin, access, router, callbackDelete }: CardBlogProps) {
+export default function CardBlog({ item, isLoggedin, access, router, callbackDelete, refresh }: CardBlogProps) {
   const [showAction, setShowAction] = useState<boolean>(false)
   const [modalConfirm, setModalConfirm] = useState<any>({
     title: "",
@@ -23,6 +25,10 @@ export default function CardBlog({ item, isLoggedin, access, router, callbackDel
     message: "",
     subMessage: "",
     data: {}
+  });
+  const [modal, setModal] = useState<any>({
+    title: "",
+    show: false,
   });
 
   const progressBarTheme = {
@@ -51,12 +57,12 @@ export default function CardBlog({ item, isLoggedin, access, router, callbackDel
           <h3 className="text-lg font-semibold max-lines-2" title={item?.judul}>{item?.judul}</h3>
           <p className="text-sm font-medium text-gray-700 max-lines-1" title={`${item?.author} • ${moment(item?.createdAt).format("DD MMMM YYYY")}`}>{item?.author} • {moment(item?.createdAt).format("DD MMMM YYYY")}</p>
           <p className="text-sm font-normal text-gray-500 max-lines-2">{item?.content?.replace(/<[^>]*>/g, '')}</p>
-          <div className="flex gap-6 w-full items-center mt-2">
+          {/* <div className="flex gap-6 w-full items-center mt-2">
             <div className="flex-grow">
               <Progress progress={item?.progress || 0} theme={progressBarTheme} color="default" />
             </div>
             <p className="text-sm font-medium text-gray-500">{item?.progress || 0}%</p>
-          </div>
+          </div> */}
         </div>
         <div className="absolute top-0 right-0">
           {showAction && isLoggedin && (access?.privillages?.update || access?.privillages?.delete) && (
@@ -69,7 +75,8 @@ export default function CardBlog({ item, isLoggedin, access, router, callbackDel
                 </div>
               }>
               {access?.privillages?.update &&
-                <DropdownItem className='flex items-center gap-2' onClick={() => router.push(`/seratus-hari-kerja/edit/${item?._id}`)}><div className='text-blue-500'><EditIcon /></div> Ubah</DropdownItem>
+                // <DropdownItem className='flex items-center gap-2' onClick={() => router.push(`/seratus-hari-kerja/edit/${item?._id}`)}><div className='text-blue-500'><EditIcon /></div> Ubah</DropdownItem>
+                <DropdownItem className='flex items-center gap-2' onClick={() => {router.replace(`/?id=${item?._id}`); setModal((prev: any) => ({ ...prev, title: "Ubah Program Kerja", show: true}))}}><div className='text-blue-500'><EditIcon /></div> Ubah</DropdownItem>
               }
               {access?.privillages?.delete &&
                 <DropdownItem className='flex items-center gap-2' onClick={() => setModalConfirm((prev: any) => ({ ...prev, title: "Hapus Postingan", message: "Apakah Anda yakin ingin menghapus postingan ini?", show: true, subMessage: "Data yang telah dihapus tidak dapat dikembalikan", data: { _id: item?._id } }))}><div className='text-red-500'><TrashIcon /></div> Hapus</DropdownItem>
@@ -78,6 +85,13 @@ export default function CardBlog({ item, isLoggedin, access, router, callbackDel
           )}
         </div>
       </div>
+
+      <Modal show={modal.show} position="center" onClose={() => {setModal((prev: any) => ({ ...prev, show: false }));router.replace('/')}}>
+        <ModalHeader>{modal.title}</ModalHeader>
+        <ModalBody>
+          <WorksPage closeModal={() => setModal((prev: any) => ({ ...prev, show: false }))} refresh={refresh} />
+        </ModalBody>
+      </Modal>
     
       <Modal show={modalConfirm.show} position="center" onClose={() => setModalConfirm((prev:any) => ({...prev, show: false}))}>
         <ModalHeader>{modalConfirm.title}</ModalHeader>
