@@ -148,7 +148,7 @@ export default function FormDataSubWorks({
           </div>
         )}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-6 lg:gap-10 mt-6">
-          {dataProgam.map((item: any, index: number) => (
+          {dataProgam?.map((item: any, index: number) => (
             <div key={index} className="flex flex-row gap-5 relative cursor-pointer">
               <Image src={item?.image || "/img/placeholder-img.svg"} alt="post-1" width={150} height={150} className="object-cover rounded-lg w-[150px] h-[150px]" />
               <div className="flex flex-col justify-center items-start w-full" onClick={() => router.push(`/seratus-hari-kerja/${data?._id}/detail?${new URLSearchParams({index: index.toString()}).toString()}`)}>

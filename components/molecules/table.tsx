@@ -42,7 +42,7 @@ const Table = ({
     >
       <thead className="bg-gray-50 dark:bg-zinc-700">
         <tr>
-          {columns.map((column, index) => (
+          {columns?.map((column, index) => (
             <th key={index} scope="col" className="px-6 py-3 border text-[1em] font-medium uppercase tracking-wider">
               <div
                 className="flex justify-center items-center relative hover:cursor-pointer"
@@ -62,7 +62,7 @@ const Table = ({
       <tbody className="bg-white dark:bg-zinc-800 divide-gray-200 dark:divide-gray-700">
         {dataLists?.map((column, index) => (
           <tr key={index}>
-            {Object.values(column).map((data, index) => {
+            {Object.values(column)?.map((data, index) => {
               return (
                 <td key={index} className="px-6 py-4 whitespace-nowrap text-[1em] border">
                   {data}

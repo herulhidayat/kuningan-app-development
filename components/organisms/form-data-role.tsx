@@ -155,11 +155,11 @@ export default function FormDataRole({ onClose, modalProps, refetch }: IFormData
             <div className="col-span-2">
               <label htmlFor="privileges" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Privileges</label>
               <div className="flex flex-col gap-2">
-                {PRIVILLAGE.map((item, index) => (
+                {PRIVILLAGE?.map((item, index) => (
                     <div key={index} className="w-full flex justify-between p-2 rounded-lg border dark:border-gray-600">
                       <p className="text-sm">{item.name}</p>
                       <div className="flex gap-2">
-                        {Object.keys(item.privillages).map((key, idx) => (
+                        {Object.keys(item.privillages)?.map((key, idx) => (
                         <div className="flex items-center" key={idx}>
                           <input {...register(`privileges.${index}.privillages.${key}`)} id={`${item.id}.${key}`} type="checkbox" className="mr-2 rounded text-primary-500 focus:ring-primary-500 dark:focus:ring-primary-500 dark:ring-offset-gray-800 dark:bg-gray-700" />
                           <label htmlFor={`${item.id}.${key}`} className="text-sm">{capitalize(key)}</label>
