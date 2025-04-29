@@ -72,7 +72,7 @@ export default function Footer() {
           <div className="flex gap-6 text-sm">
             <div className="flex w-full flex-col gap-2 md:w-[200px]">
               <p className="font-bold">Media Sosial Kami</p>
-              {socialMedia.map((socialMediaItem) => {
+              {socialMedia?.map((socialMediaItem) => {
                 return (
                   <Link
                     key={socialMediaItem.id}
@@ -86,7 +86,7 @@ export default function Footer() {
             </div>
             <div className="flex w-full flex-col gap-2 md:w-[200px]">
               <p className="font-bold">Data Terbuka</p>
-              {openDataItems.map((openDataItem) => {
+              {openDataItems?.map((openDataItem) => {
                 return (
                   <Link
                     key={openDataItem.id}

@@ -136,7 +136,7 @@ function Role() {
     }
 
     const renderTable = useMemo(() => {
-        const data = queryDataset?.data?.data.map((item: any, index: number) => ({
+        const data = queryDataset?.data?.data?.map((item: any, index: number) => ({
             id: index,
             name: item?.name,
             description: item?.description,

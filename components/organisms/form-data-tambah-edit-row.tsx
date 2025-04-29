@@ -33,7 +33,7 @@ export default function FormDataTambahEditRow({ modalProps, column, closeModal, 
         <ModalHeader>{modalProps.title}</ModalHeader>
         <ModalBody>
           <div className="grid grid-cols-1 gap-4 mb-4">
-            {column.map((item: any, index: number) => (
+            {column?.map((item: any, index: number) => (
               <div key={index} className="col-span-1">
                 <label htmlFor={item.name} className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{item.name}</label>
                 <input {...register(item.name)} type="" id="author" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder={`Masukkan ${item.name}`} />

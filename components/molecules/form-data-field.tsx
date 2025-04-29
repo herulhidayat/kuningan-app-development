@@ -55,7 +55,7 @@ export default function FormDataField({ dataField, setDataField }: IFormDataFiel
   };
 
   const renderListFIeld = useMemo(() => {
-    return dataField.map((item: any, index: number) => <FieldItem key={index} data={item} callbackUpdate={(data: any) => callbackUpdateDataField(data, index)} callbackRemove={() => handleRemoveField(index)} />);
+    return dataField?.map((item: any, index: number) => <FieldItem key={index} data={item} callbackUpdate={(data: any) => callbackUpdateDataField(data, index)} callbackRemove={() => handleRemoveField(index)} />);
   }, [dataField]);
 
   return (

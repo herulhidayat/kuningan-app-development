@@ -28,7 +28,7 @@ export default function SelectDynamic({ name, pathUrl, fieldPath, callback }: Pr
         }
       );
 
-      const data = response.data.data.map((item: any) => {
+      const data = response.data?.data?.map((item: any) => {
         return {
           label: get(item, fieldPath),
           value: get(item, fieldPath)

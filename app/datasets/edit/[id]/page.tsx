@@ -41,7 +41,7 @@ function FormDataset() {
 	if(data?.isEdit) {
 		setDataMain((prev: any) => ({ 
 			...prev, 
-			value_row: prev?.value_row.map((item: any, i: number) => i === data?.dataIndex ? data?.row : item) 
+			value_row: prev?.value_row?.map((item: any, i: number) => i === data?.dataIndex ? data?.row : item) 
 		}));
 	} else {
 		setDataMain((prev: any) => ({ 

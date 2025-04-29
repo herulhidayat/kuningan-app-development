@@ -150,7 +150,7 @@ function UserManagement() {
     }
 
     const renderTable = useMemo(() => {
-        const data = queryDataset?.data?.data.map((item: any, index: number) => ({
+        const data = queryDataset?.data?.data?.map((item: any, index: number) => ({
             id: index,
             username: item?.username,
             fullname: item?.fullname,
