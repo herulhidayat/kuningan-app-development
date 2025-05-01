@@ -26,6 +26,7 @@ export default function FormDataProgress({
     progress: yup.number(),
     description: yup.string(),
     target: yup.string(),
+    detail_program: yup.array()
   });
 
   const [formModel] = useState<any>({
@@ -34,6 +35,7 @@ export default function FormDataProgress({
     progress: 0,
     description: "",
     target: "",
+    detail_program: []
   });
 
 
@@ -52,7 +54,7 @@ export default function FormDataProgress({
     if (callbackData && dataForm) {
       if (data) {
         const newData = {
-          ...data,
+          ...data?.item,
           ...dataForm
         }
         callbackData(newData)

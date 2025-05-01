@@ -104,9 +104,9 @@ function PostCatalog() {
         {/* {(isLoggedin && access?.privillages?.add) && (
           <button onClick={() => router.push("/seratus-hari-kerja/add")} className="text-gray-800 bg-primary-500 hover:bg-primary-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm w-[10rem] px-5 py-2.5 text-center dark:bg-primary-500 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Tambah Postingan</button>
         )} */}
-        {/* {(isLoggedin && access?.privillages?.add) && ( */}
+        {(isLoggedin && access?.privillages?.add) && (
           <button onClick={() => setModal((prev: any) => ({ ...prev, show: true, title: "Tambah Program Kerja" }))} className="text-gray-800 bg-primary-500 hover:bg-primary-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm w-[13rem] px-5 py-2.5 text-center dark:bg-primary-500 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Tambah Program Kerja</button>
-        {/* )} */}
+        )}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-6 lg:gap-10 mt-6">
             {getAllBlog.isLoading && (
               Array.from({ length: 3 }).map((_, index) => (

@@ -41,8 +41,8 @@ export const API_PATH = () => {
         delete: "v1/blog/delete",
       },
       cdn: {
-        uploadImage: "v1/cdn/upload-image",
-        deleteImage: "v1/cdn/delete-image",
+        uploadImage: "cdn/upload-image",
+        deleteImage: "cdn/delete-image",
       }
     }
 }
