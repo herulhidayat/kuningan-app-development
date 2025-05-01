@@ -59,7 +59,7 @@ function FormPageWorks({closeModal, refresh}: {closeModal: () => void, refresh: 
         } else {
             addPost.mutate(data)
         }
-    }, [])
+    }, [id])
     return (
         <>
             <FormDataWorks callbackData={callbackSave} data={dataBlog.data} closeModal={closeModal}/>

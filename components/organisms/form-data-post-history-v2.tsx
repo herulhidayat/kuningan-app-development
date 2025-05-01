@@ -15,6 +15,7 @@ import TrashIcon from "../ui/icons/TrashIcon";
 import { debounce, update } from "lodash";
 import { on } from "process";
 import { callback } from "chart.js/helpers";
+import FormUploadImage from "../molecules/form-upload-image";
 // import { RangeSlider } from "flowbite-react";
 
 interface FormDataPostProps {
@@ -149,28 +150,34 @@ export default function FormDataPostHistoryV2({
           {data?.detail_progress?.[parseInt(paramsUrl.get("index") || "")]?.detail_program?.map((item: any, index: number) => (
             <div key={index} className="flex flex-row gap-5 relative cursor-pointer border rounded-lg border-gray-200 p-5">
               <div className="flex flex-col justify-center items-start w-full">
-                <table>
-                  <tr>
-                    <td className="text-base font-medium text-gray-700">Nama Program</td>
-                    <td className="text-base font-normal text-gray-700">:</td>
-                    <td className="text-base font-normal text-gray-700">{item?.program_name}</td>
-                  </tr>
-                  <tr>
-                    <td className="text-base font-medium text-gray-700">Lokasi</td>
-                    <td className="text-base font-normal text-gray-700">:</td>
-                    <td className="text-base font-normal text-gray-700">{item?.location}</td>
-                  </tr>
-                  <tr>
-                    <td className="text-base font-medium text-gray-700">Output</td>
-                    <td className="text-base font-normal text-gray-700">:</td>
-                    <td className="text-base font-normal text-gray-700">{item?.output}</td>
-                  </tr>
-                  <tr>
-                    <td className="text-base font-medium text-gray-700">Bukti Dukung</td>
-                    <td className="text-base font-normal text-gray-700">:</td>
-                    <td className="text-base font-normal text-gray-700">{item?.supporting_evidence}</td>
-                  </tr>
+                <table className="w-full">
+                  <tbody>
+                    <tr>
+                      <td className="text-base font-medium text-gray-700 w-[10rem]">Nama Program</td>
+                      <td className="text-base font-normal text-gray-700">:</td>
+                      <td className="text-base font-normal text-gray-700">{item?.program_name}</td>
+                    </tr>
+                    <tr>
+                      <td className="text-base font-medium text-gray-700 w-[10rem]">Lokasi</td>
+                      <td className="text-base font-normal text-gray-700">:</td>
+                      <td className="text-base font-normal text-gray-700">{item?.location}</td>
+                    </tr>
+                    <tr>
+                      <td className="text-base font-medium text-gray-700 w-[10rem]">Output</td>
+                      <td className="text-base font-normal text-gray-700">:</td>
+                      <td className="text-base font-normal text-gray-700">{item?.output}</td>
+                    </tr>
+                    <tr>
+                      <td className="text-base font-medium text-gray-700 w-[10rem]">Bukti Dukung</td>
+                      <td className="text-base font-normal text-gray-700">:</td>
+                    </tr>
+                  </tbody>
                 </table>
+                {item?.supporting_evidence && (
+                  <div className="w-full flex justify-center items-center">
+                      <Image src={`http://srv602602.hstgr.cloud:9088/blog${item?.supporting_evidence}`} alt="post-1" width={150} height={150} className="rounded-lg w-auto h-[150px]" />
+                  </div>
+                )}
                 <div className="flex gap-6 w-full items-center mt-2">
                   <div className="flex-grow">
                     <Progress progress={item?.progress || 0} theme={progressBarTheme} color="default" />
@@ -227,7 +234,7 @@ export default function FormDataPostHistoryV2({
               </div>
               <div className="col-span-2">
                 <label htmlFor="supporting_evidence" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Bukti Dukung</label>
-                <input defaultValue={onFormHistory?.supporting_evidence} onChange={(e) => setOnFormHistory((prev: any) => ({ ...prev, supporting_evidence: e.target.value }))} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Masukkan bukti dukung" />
+                <FormUploadImage callback={(data: any) => setOnFormHistory((prev: any) => ({ ...prev, supporting_evidence: data }))}/>
               </div>
               <div className="col-span-2">
                 <label htmlFor="judul" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Progres</label>

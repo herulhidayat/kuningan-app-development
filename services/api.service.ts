@@ -16,6 +16,13 @@ api.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token?.token}`;
     }
+
+    if (!(config.data instanceof FormData)) {
+      config.headers['Content-Type'] = 'application/json';
+    } else {
+      delete config.headers['Content-Type'];
+    }
+
     return config;
   },
   (error) => Promise.reject(error)

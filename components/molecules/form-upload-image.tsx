@@ -31,12 +31,9 @@ export default function FormUploadImage({ callback, callbackFile, dataImage, typ
           url: `/${API_PATH().cdn.uploadImage}`,
           params: params,
           data: formData,
-          headers: { 
-            'Content-Type': 'multipart/form-data' 
-          },
         });
         if (size(res.data)) {
-          const pathImage = res?.data
+          const pathImage = res?.data?.data
           callback(pathImage)
           setSelectedImage(pathImage)
         }
@@ -67,8 +64,8 @@ export default function FormUploadImage({ callback, callbackFile, dataImage, typ
 
       const params = {
         root: 'kuningan',
-        folder: 'kuningan-image',
-        prefix: 'image'
+        folder: '2025/02/02',
+        randomNumber: 'false'
       }
 
       // console.log(formData, file)
@@ -169,7 +166,7 @@ export default function FormUploadImage({ callback, callbackFile, dataImage, typ
                   </div>
                 </>
                 : selectedImage ?
-                  <Image src={selectedImage} height='75' width='75' alt={""} className="max-h-[75px]" />
+                  <Image src={`http://srv602602.hstgr.cloud:9088/blog${selectedImage}`} height='75' width='75' alt={""} className="max-h-[75px]" />
                   :
                   <UploadIcon />
               }
