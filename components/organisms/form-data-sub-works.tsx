@@ -82,7 +82,7 @@ export default function FormDataSubWorks({
 
     if (callbackData) callbackData(dataProgress)
 
-    setModal((prev: any) => ({ ...prev, show: false, isEdit: false }))
+    setModal((prev: any) => ({ ...prev, show: false, isEdit: false, data: {} }))
   }
 
   const editProgress = ({index, item}: {index: number, item: any}) => {
@@ -97,7 +97,7 @@ export default function FormDataSubWorks({
 
     if (callbackData) callbackData(dataProgress)
 
-    setModal((prev: any) => ({ ...prev, show: false, isEdit: false }))
+    setModal((prev: any) => ({ ...prev, show: false, isEdit: false, data: {} }))
   }
 
   const deleteProgress = (index: string) => {
@@ -116,7 +116,7 @@ export default function FormDataSubWorks({
     } else {
       addProker(item)
     }
-  }, [])
+  }, [modal])
 
   useEffect(() => {
     setDataProgram(data?.detail_progress)
@@ -186,11 +186,11 @@ export default function FormDataSubWorks({
       </div>
 
       <Modal show={modal.show} position="center" onClose={() => {
-        setModal((prev: any) => ({ ...prev, show: false, isEdit: false }))
+        setModal((prev: any) => ({ ...prev, show: false, isEdit: false, data: {} }))
       }}>
         <ModalHeader>{modal.title}</ModalHeader>
         <ModalBody>
-          <FormDataProgress data={modal.data} callbackData={callbackProker} closeModal={() => setModal((prev: any) => ({ ...prev, show: false, isEdit: false }))}/>
+          <FormDataProgress data={modal.data} callbackData={callbackProker} closeModal={() => setModal((prev: any) => ({ ...prev, show: false, isEdit: false, data: {} }))}/>
         </ModalBody>
       </Modal>
 

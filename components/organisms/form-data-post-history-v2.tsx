@@ -254,7 +254,7 @@ export default function FormDataPostHistoryV2({
             <button onClick={() => {
               if(modal.isEdit) editProgress(modal.data.index) 
               else addProgress()
-            }} className="text-gray-800 bg-primary-500 hover:bg-primary-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-primary-500 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Tambahkan</button>
+            }} className="text-gray-800 bg-primary-500 hover:bg-primary-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-primary-500 dark:hover:bg-primary-700 dark:focus:ring-primary-800">{modal.isEdit ? "Ubah" : "Tambahkan"}</button>
           </div>
         </ModalFooter>
       </Modal>
