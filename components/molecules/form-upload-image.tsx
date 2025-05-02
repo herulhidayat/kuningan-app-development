@@ -166,7 +166,7 @@ export default function FormUploadImage({ callback, callbackFile, dataImage, typ
                   </div>
                 </>
                 : selectedImage ?
-                  <Image src={`https://srv602602.hstgr.cloud:9088/blog${selectedImage}`} height='75' width='75' alt={""} className="max-h-[75px]" />
+                  <Image src={`http://srv602602.hstgr.cloud:9088/blog${selectedImage}`} height='75' width='75' alt={""} className="max-h-[75px]" />
                   :
                   <UploadIcon />
               }
