@@ -175,7 +175,7 @@ export default function FormDataPostHistoryV2({
                 </table>
                 {item?.supporting_evidence && (
                   <div className="w-full flex justify-center items-center">
-                      <Image src={`http://srv602602.hstgr.cloud:9088/blog${item?.supporting_evidence}`} alt="post-1" width={150} height={150} className="rounded-lg w-auto h-[150px]" />
+                      <Image src={`https://bigdata.kuningankab.go.id:9088/blog${item?.supporting_evidence}`} alt="post-1" width={150} height={150} className="rounded-lg w-auto h-[150px]" />
                   </div>
                 )}
                 <div className="flex gap-6 w-full items-center mt-2">

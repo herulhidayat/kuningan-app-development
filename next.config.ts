@@ -20,7 +20,7 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    domains: ['srv602602.hstgr.cloud'],
+    domains: ['bigdata.kuningankab.go.id'],
   },
 };
 
