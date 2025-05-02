@@ -1,13 +1,13 @@
 'use client';
 
-import { setItem } from "@/helpers/localstorage.helper";
+import { deleteItem, getItem, setItem } from "@/helpers/localstorage.helper";
 import { API_PATH } from "@/services/_path.service";
 import api from "@/services/api.service";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { QueryClient, QueryClientProvider, useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import Cookies from "js-cookie";
@@ -67,6 +67,15 @@ function LoginPage() {
   const handleSubmitForm = (data: { username: string; password: string }) => {
     mutation.mutate(data);
   };
+
+  useEffect(() => {
+    if(getItem('token')) {
+      deleteItem('token')
+    } 
+    if(getItem('user')) {
+      deleteItem('user')
+    }
+  }, [])
 
   return (
     <>
