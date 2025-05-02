@@ -49,7 +49,7 @@ export default function CardBlog({ item, isLoggedin, access, router, callbackDel
   return(
     <>
       <div className="flex flex-row gap-5 relative cursor-pointer" onMouseEnter={() => setShowAction(true)} onMouseLeave={() => setShowAction(false)}>
-        <Image src={item?.image_cover ? `https://bigdata.kuningankab.go.id:9088/blog${item?.image_cover}` : "/img/placeholder-img.svg"} alt="post-1" width={150} height={150} className="object-cover rounded-lg w-[150px] h-[150px]" />
+        <Image src={item?.image_cover ? `https://srv602602.hstgr.cloud:9088/blog${item?.image_cover}` : "/img/placeholder-img.svg"} alt="post-1" width={150} height={150} className="object-cover rounded-lg w-[150px] h-[150px]" />
         <div className="flex flex-col justify-center items-start w-full" onClick={() => router.push(`/seratus-hari-kerja/${item?._id}`)}>
           {/* {moment().diff(moment(item?.createdAt), 'days') < 7 &&
             <p className="text-sm font-medium text-primary-500">New</p>
