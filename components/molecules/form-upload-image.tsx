@@ -63,8 +63,8 @@ export default function FormUploadImage({ callback, callbackFile, dataImage, typ
       // formData.append('prefix', 'image')
 
       const params = {
-        root: 'kuningan',
-        folder: '2025/02/02',
+        root: 'test',
+        folder: '010203',
         randomNumber: 'false'
       }
 

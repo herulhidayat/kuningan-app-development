@@ -51,6 +51,11 @@ function LoginPage() {
       const { data } = await axios.post(`api/${API_PATH().auth.login}`, newDataset);
       setItem('token', data.auth)
       setItem('user', data.user)
+      if(data?.auth) {
+        const expirationDate = new Date(data?.auth?.expire);
+        Cookies.set("authToken", data?.auth?.token, { expires: expirationDate });
+        router.push(redirectUrl || '/')
+      }
       return data;
     },
     onSuccess: (data) => {
