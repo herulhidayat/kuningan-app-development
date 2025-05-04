@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
         source: "/api/cdn/:path*",
         destination: "http://194.59.165.146:8910/:path*",
       },
+      {
+        source: "/api/cdn-show-image/:path*",
+        destination: "http://srv602602.hstgr.cloud:9088/:path*",
+      }
     ];
   },
   eslint: {
@@ -19,9 +23,9 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  images: {
-    domains: ['srv602602.hstgr.cloud'],
-  },
+  // images: {
+  //   domains: ['srv602602.hstgr.cloud'],
+  // },
 };
 
 export default nextConfig;
