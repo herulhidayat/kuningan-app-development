@@ -2,17 +2,16 @@
 
 import { deleteItem, getItem, setItem } from "@/helpers/localstorage.helper";
 import { API_PATH } from "@/services/_path.service";
-import api from "@/services/api.service";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { QueryClient, QueryClientProvider, useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import Cookies from "js-cookie";
 import { Poppins } from "next/font/google";
-import { CursorArrowRaysIcon, EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 
 
@@ -20,7 +19,6 @@ const poppins = Poppins({ subsets: ['latin'], weight: ['400', '500', '600', '700
 
 function LoginPage() {
   const searchParams = useSearchParams()
-  const router = useRouter()
   const redirectUrl = searchParams.get('redirect')
   const schema = yup.object().shape({
     username: yup.string().required('Username is required'),
@@ -51,17 +49,13 @@ function LoginPage() {
       const { data } = await axios.post(`api/${API_PATH().auth.login}`, newDataset);
       setItem('token', data.auth)
       setItem('user', data.user)
-      if(data?.auth) {
-        const expirationDate = new Date(data?.auth?.expire);
-        Cookies.set("authToken", data?.auth?.token, { expires: expirationDate });
-        router.push(redirectUrl || '/')
-      }
       return data;
     },
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       const expirationDate = new Date(data?.auth?.expire);
       Cookies.set("authToken", data?.auth?.token, { expires: expirationDate });
-      router.push(redirectUrl || '/')
+      window.location.href = redirectUrl || '/';
+      console.log('redirectUrl', redirectUrl)
     },
     onError: (error: any) => {
       setErrorMessage(error.response.data.message);
