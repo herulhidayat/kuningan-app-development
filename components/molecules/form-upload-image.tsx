@@ -166,7 +166,7 @@ export default function FormUploadImage({ callback, callbackFile, dataImage, typ
                   </div>
                 </>
                 : selectedImage ?
-                  <Image src={`/api/cdn-show-image/blog${selectedImage}`} height='75' width='75' alt={""} className="max-h-[75px]" />
+                  <Image src={`https://bigdata.kuningankab.go.id:9088/blog${selectedImage}`} unoptimized height='75' width='75' alt={""} className="max-h-[75px]" />
                   :
                   <UploadIcon />
               }

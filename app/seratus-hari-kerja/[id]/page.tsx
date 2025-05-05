@@ -56,7 +56,7 @@ function ViewPost() {
 				<div className="md:px-4.5 dark:divide-washed-dark h-full w-full max-w-screen-2xl px-3 lg:px-6">
                     <div className="flex items-center justify-center py-10">
                         <div className="w-9/12 max-md:w-full flex flex-col gap-8">
-                            <Image src={getBlogContent?.data?.image_cover ? `/api/cdn-show-image/blog${getBlogContent?.data?.image_cover}` : "/img/placeholder-img.svg"} alt="post-1" width={300} height={300} className="object-cover rounded-lg w-full" />
+                            <Image src={getBlogContent?.data?.image_cover ? `https://bigdata.kuningankab.go.id:9088/blog${getBlogContent?.data?.image_cover}` : "/img/placeholder-img.svg"} unoptimized alt="post-1" width={300} height={300} className="object-cover rounded-lg w-full" />
                             <div
                             className="prose max-w-none"
                             dangerouslySetInnerHTML={{ __html: getBlogContent?.data?.content }}
