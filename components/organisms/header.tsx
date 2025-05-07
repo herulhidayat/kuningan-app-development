@@ -32,26 +32,26 @@ export default function Header() {
       title: '100 Hari Kerja',
       href: '/',
     },
-    {
-      id: 1,
-      title: 'Beranda',
-      href: '/home',
-    },
     // {
-    //   id: 2,
-    //   title: 'Dashboard',
-    //   href: '/dashboards',
+    //   id: 1,
+    //   title: 'Beranda',
+    //   href: '/home',
     // },
-    {
-      id: 3,
-      title: 'Dataset',
-      href: '/datasets',
-    },
-    {
-      id: 4,
-      title: 'Dokumentasi API',
-      href: '/docs',
-    },
+    // // {
+    // //   id: 2,
+    // //   title: 'Dashboard',
+    // //   href: '/dashboards',
+    // // },
+    // {
+    //   id: 3,
+    //   title: 'Dataset',
+    //   href: '/datasets',
+    // },
+    // {
+    //   id: 4,
+    //   title: 'Dokumentasi API',
+    //   href: '/docs',
+    // },
   ]
 
   return (
